@@ -43,68 +43,71 @@
         .slider { display: flex; width: 100%; height: 100%; transition: transform 1s cubic-bezier(0.65, 0, 0.35, 1); }
         .slide { min-width: 100%; height: 100%; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
-        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.4); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 10; backdrop-filter: blur(5px); color: #fff; }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 10; color: #fff; }
 
-        /* WARRANTY BOX - MẪU MỚI */
+        /* WARRANTY BOX - MẪU CHUẨN */
         .warranty-section { padding: 60px 20px; background: #fff; text-align: center; }
-        .warranty-header h2 { font-size: 1.8rem; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; }
+        .warranty-header h2 { font-size: 1.8rem; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; text-transform: uppercase; }
         .warranty-subtitle { color: #ff3300; font-weight: 700; font-style: italic; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 1px; }
-        .warranty-desc { max-width: 900px; margin: 0 auto 30px; color: #555; font-size: 0.95rem; line-height: 1.6; }
+        .warranty-desc { max-width: 900px; margin: 0 auto 30px; color: #444; font-size: 0.95rem; line-height: 1.6; }
         .warranty-card { max-width: 800px; margin: 0 auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
         .warranty-form { display: grid; grid-template-columns: 1fr; gap: 20px; text-align: left; }
-        .form-group label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 0.9rem; }
-        .form-group input { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; outline: none; background: #fdfdfd; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 0.9rem; color: #333; }
+        .form-group input { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; outline: none; background: #fff; font-size: 1rem; }
         .warranty-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
-        .btn-lookup { background: var(--btn-orange); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.3s; }
-        .btn-history { background: #fff; color: #333; border: 1px solid #ddd; padding: 14px; border-radius: 6px; font-weight: 700; cursor: pointer; }
-        #warranty-result { margin-top: 30px; text-align: left; display: none; border-top: 1px dashed #ccc; padding-top: 20px; }
+        .btn-lookup { background: var(--btn-orange); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 0.9rem; }
+        .btn-history { background: #fff; color: #333; border: 1px solid #ddd; padding: 14px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.9rem; }
+        #warranty-result { margin-top: 30px; text-align: left; display: none; border-top: 1px dashed #ccc; padding-top: 25px; }
 
-        /* PRODUCTS */
+        /* PRODUCT GRID */
         section { padding: 60px 20px; max-width: 1300px; margin: auto; }
         .section-title h2 { font-size: 2rem; color: var(--primary); text-align: center; text-transform: uppercase; font-style: italic; }
         .underline { width: 70px; height: 4px; background: var(--btn-orange); margin: 10px auto 30px; }
         
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 20px; }
         .product-card { background: #fff; border: 1px solid #f1f5f9; border-radius: var(--radius); padding: 15px; text-align: center; transition: 0.3s; box-shadow: var(--shadow-sm); display: flex; flex-direction: column; }
-        .product-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-lg); }
         .product-card img { width: 100%; height: 180px; object-fit: contain; margin-bottom: 12px; cursor: pointer; }
         .product-card h3 { font-size: 0.85rem; height: 40px; overflow: hidden; margin-bottom: 10px; font-weight: 700; color: #333; }
         .product-card .price { color: var(--price-red); font-weight: 800; font-size: 1.1rem; margin-bottom: 15px; }
-        .btn-zalo { background: #0068ff; color: #fff; border: none; padding: 10px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 0.8rem; display: block; }
+        .btn-zalo { background: #0068ff; color: #fff; border: none; padding: 12px; border-radius: 10px; font-weight: 700; text-decoration: none; font-size: 0.8rem; display: block; text-align: center; }
 
-        /* OTHER SECTIONS */
+        /* INTRO & OTHERS */
         .intro-container { display: grid; grid-template-columns: 1fr 1fr; gap: 40px; align-items: center; }
         .intro-img-box img { width: 100%; border-radius: var(--radius); box-shadow: var(--shadow-lg); }
         .activity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 20px; }
         .activity-item { background: #fff; padding: 30px; border-radius: var(--radius); text-align: center; box-shadow: var(--shadow-sm); border-top: 4px solid var(--primary); }
         #projects { background: #0f172a; color: #fff; overflow: hidden; padding: 60px 0; }
         .marquee { display: flex; width: max-content; animation: scroll 40s linear infinite; gap: 20px; }
-        .proj-card { width: 280px; border-radius: 12px; overflow: hidden; background: #1e293b; }
+        .proj-card { width: 280px; border-radius: 12px; overflow: hidden; background: #1e293b; text-align: center; padding-bottom: 15px; }
         .proj-card img { width: 100%; height: 160px; object-fit: cover; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* FOOTER - CÂN ĐỐI VÀ CANH GIỮA */
-        footer { background: #0f172a; color: #94a3b8; padding: 60px 20px; text-align: center; }
-        .footer-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 40px; justify-items: center; }
-        .footer-col { display: flex; flex-direction: column; align-items: center; }
-        .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 1.1rem; }
+        /* FOOTER - CANH GIỮA HOÀN TOÀN */
+        footer { background: #0f172a; color: #94a3b8; padding: 60px 20px; }
+        .footer-grid { max-width: 1200px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 40px; }
+        .footer-col { display: flex; flex-direction: column; align-items: center; text-align: center; }
+        .footer-col img { height: 50px; margin-bottom: 20px; }
+        .footer-col h4 { color: #fff; margin-bottom: 20px; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; }
         .footer-col ul { list-style: none; padding: 0; }
-        .footer-col ul li { margin-bottom: 12px; }
+        .footer-col ul li { margin-bottom: 12px; font-size: 0.9rem; }
+        .footer-social { display: flex; gap: 20px; font-size: 1.5rem; margin-top: 10px; }
+        .footer-social a { color: #94a3b8; transition: 0.3s; }
+        .footer-social a:hover { color: #fff; }
 
         /* MODAL */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.85); z-index: 2000; justify-content: center; align-items: center; padding: 15px; backdrop-filter: blur(5px); }
         .modal-content { background: var(--white); width: 100%; max-width: 900px; border-radius: 20px; display: grid; grid-template-columns: 45% 55%; position: relative; overflow: hidden; max-height: 90vh; }
-        .modal-left { padding: 30px; border-right: 1px solid #eee; overflow-y: auto; text-align: center; }
+        .modal-left { padding: 30px; border-right: 1px solid #eee; text-align: center; }
         .modal-right { padding: 40px; overflow-y: auto; display: flex; flex-direction: column; }
-        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 35px; color: #999; cursor: pointer; z-index: 10; }
+        .close-btn { position: absolute; top: 15px; right: 20px; font-size: 35px; color: #999; cursor: pointer; }
         .specs-list { list-style: none; margin-top: 15px; text-align: left; }
         .specs-list li { position: relative; padding-left: 25px; margin-bottom: 8px; font-size: 0.9rem; }
         .specs-list li::before { content: '✓'; position: absolute; left: 0; color: #2ecc71; font-weight: 700; }
 
         @media (max-width: 768px) {
-            .slider-container { height: 200px; }
+            .slider-container { height: 220px; }
             .intro-container { grid-template-columns: 1fr; }
-            .modal-content { grid-template-columns: 1fr; overflow-y: auto; }
+            .modal-content { grid-template-columns: 1fr; }
             .warranty-actions { grid-template-columns: 1fr; }
             .menu-toggle { display: block; }
             nav ul { position: fixed; top: 0; right: -100%; width: 75%; height: 100vh; background: #fff; flex-direction: column; padding: 80px 20px; transition: 0.4s; z-index: 1002; box-shadow: -10px 0 20px rgba(0,0,0,0.1); }
@@ -153,13 +156,13 @@
         </div>
     </div>
 
-    <!-- PHẦN TRA CỨU BẢO HÀNH -->
+    <!-- MODULE TRA CỨU BẢO HÀNH (ĐÃ FIX CỘT C & F) -->
     <section id="warranty" class="warranty-section">
         <div class="warranty-header">
             <h2>TRA CỨU BẢO HÀNH & LỊCH SỬ DỊCH VỤ</h2>
             <div class="warranty-subtitle">——— NHANH CHÓNG – TIỆN LỢI ———</div>
         </div>
-        <p class="warranty-desc">Chân thành cảm ơn Quý khách đã tin tưởng và sử dụng các dịch vụ tại <span style="color:#ff6a00; font-weight:700">Hệ thống HT25 VN</span>. Quý khách có thể theo dõi thông tin dịch vụ chi tiết bằng cách nhập thông tin vào ô bên dưới để kiểm tra.</p>
+        <p class="warranty-desc">Nhập thông tin biển số hoặc số điện thoại để tra cứu bảo hành sản phẩm tại HT25 VN.</p>
         
         <div class="warranty-card">
             <div class="warranty-form">
@@ -169,7 +172,7 @@
                 </div>
                 <div class="form-group">
                     <label>Số điện thoại</label>
-                    <input type="text" id="w-phone" placeholder="Ví dụ: 0867xxxxxx">
+                    <input type="text" id="w-phone" placeholder="Ví dụ: 0907xxxxxx">
                 </div>
             </div>
             <div class="warranty-actions">
@@ -180,13 +183,11 @@
         </div>
     </section>
 
-    <!-- PHẦN SẢN PHẨM -->
     <section id="products">
         <div class="section-title"><h2>Sản phẩm tiêu biểu</h2><div class="underline"></div></div>
         <div class="product-grid" id="product-grid"></div>
     </section>
 
-    <!-- PHẦN GIỚI THIỆU -->
     <section id="intro">
         <div class="section-title"><h2>Giới thiệu</h2><div class="underline"></div></div>
         <div class="intro-container">
@@ -195,7 +196,6 @@
         </div>
     </section>
 
-    <!-- PHẦN LĨNH VỰC -->
     <section id="activity" style="background: var(--light-bg); max-width: 100%;">
         <div style="max-width: 1300px; margin: auto;">
             <div class="section-title"><h2>Lĩnh vực hoạt động</h2><div class="underline"></div></div>
@@ -203,27 +203,21 @@
         </div>
     </section>
 
-    <!-- PHẦN KHÁCH HÀNG -->
     <section id="projects">
         <div class="section-title"><h2 style="color: white;">Khách hàng tin dùng</h2><div class="underline"></div></div>
         <div class="marquee" id="project-list"></div>
     </section>
 
-    <!-- MODAL SẢN PHẨM -->
     <div id="pModal" class="modal" onclick="if(event.target==this) closeModal()">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="modal-left">
-                <img id="m-img" src="" style="width:100%; height:300px; object-fit:contain">
-            </div>
+            <div class="modal-left"><img id="m-img" src="" style="width:100%; height:300px; object-fit:contain"></div>
             <div class="modal-right">
                 <h2 id="m-title"></h2>
                 <div id="m-price" style="color:var(--price-red); font-size:1.8rem; font-weight:800; margin:15px 0"></div>
                 <div style="font-weight:700; border-bottom:1px solid #eee; padding-bottom:5px">THÔNG SỐ KỸ THUẬT</div>
                 <ul id="m-specs" class="specs-list"></ul>
-                <a id="m-zalo-link" href="https://zalo.me/0907590123" target="_blank" class="btn-zalo" style="margin-top:auto; padding:15px; text-align:center">
-                    <i class="fa-solid fa-comment-dots"></i> LIÊN HỆ TƯ VẤN ZALO
-                </a>
+                <a id="m-zalo" href="https://zalo.me/0907590123" target="_blank" class="btn-zalo" style="margin-top:auto; padding:15px"><i class="fa-solid fa-comment-dots"></i> LIÊN HỆ TƯ VẤN ZALO</a>
             </div>
         </div>
     </div>
@@ -231,7 +225,7 @@
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <img src="data/logo.jpg" style="height: 50px; margin-bottom: 20px;">
+                <img src="data/logo.jpg" alt="Logo">
                 <div id="f-intro"></div>
             </div>
             <div class="footer-col">
@@ -240,10 +234,10 @@
             </div>
             <div class="footer-col">
                 <h4>MẠNG XÃ HỘI</h4>
-                <div style="display: flex; gap: 15px; font-size: 1.5rem;">
-                    <a href="https://zalo.me/0907590123" style="color:#fff"><i class="fa-solid fa-comment-dots"></i></a>
-                    <a href="#" style="color:#fff"><i class="fa-brands fa-facebook"></i></a>
-                    <a href="#" style="color:#fff"><i class="fa-brands fa-youtube"></i></a>
+                <div class="footer-social">
+                    <a href="https://zalo.me/0907590123" target="_blank"><i class="fa-solid fa-comment-dots"></i></a>
+                    <a href="#"><i class="fa-brands fa-facebook"></i></a>
+                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
                 </div>
             </div>
         </div>
@@ -255,7 +249,6 @@
         let products = [], warrantyData = [], curSlide = 0;
 
         function toggleMenu() { document.getElementById('nav-menu').classList.toggle('active'); }
-
         async function fetchData(sheet) {
             const r = await fetch(`${base}&sheet=${encodeURIComponent(sheet)}`);
             const text = await r.text();
@@ -267,36 +260,38 @@
             document.getElementById('slider').style.transform = `translateX(-${curSlide * 100}%)`;
         }
 
-        // TRA CỨU BẢO HÀNH
+        // --- HÀM TRA CỨU BẢO HÀNH (ĐÃ CẬP NHẬT CỘT C=2, F=5) ---
         function checkWarranty() {
             const plate = document.getElementById('w-plate').value.trim().toLowerCase();
             const phone = document.getElementById('w-phone').value.trim();
             const resDiv = document.getElementById('warranty-result');
             
-            if(!plate && !phone) { alert("Vui lòng nhập thông tin tra cứu!"); return; }
+            if(!plate && !phone) { alert("Vui lòng nhập biển số hoặc số điện thoại!"); return; }
 
             const found = warrantyData.filter(r => {
-                const rPlate = r.c[0]?.v?.toString().toLowerCase() || "";
-                const rPhone = r.c[1]?.v?.toString() || "";
+                // Google JSON: c[2] là cột C, c[5] là cột F
+                const rPhone = r.c[2]?.v?.toString() || "";
+                const rPlate = r.c[5]?.v?.toString().toLowerCase() || "";
                 return (plate && rPlate.includes(plate)) || (phone && rPhone.includes(phone));
             });
 
             if(found.length > 0) {
                 resDiv.style.display = 'block';
-                let html = `<h3 style="color:var(--primary); margin-bottom:15px">Kết quả tìm thấy (${found.length}):</h3>`;
+                let html = `<h3 style="color:var(--primary); margin-bottom:15px; text-align:center">KẾT QUẢ TÌM THẤY (${found.length})</h3>`;
                 found.forEach(item => {
-                    html += `<div style="background:#f8fafc; padding:15px; border-radius:8px; border-left:4px solid var(--btn-orange); margin-bottom:10px">
-                        <p><b>Khách hàng:</b> ${item.c[2]?.v || ''}</p>
-                        <p><b>Xe:</b> ${item.c[0]?.v || ''}</p>
-                        <p><b>Nội dung:</b> ${item.c[4]?.v || ''}</p>
-                        <p><b>Ngày làm:</b> ${item.c[3]?.f || item.c[3]?.v || ''}</p>
-                        <p><b>Bảo hành đến:</b> <b style="color:red">${item.c[5]?.f || item.c[5]?.v || 'Hết hạn'}</b></p>
+                    html += `<div style="background:#f8fafc; padding:20px; border-radius:10px; border-left:5px solid var(--btn-orange); margin-bottom:15px; box-shadow:0 2px 5px rgba(0,0,0,0.05)">
+                        <p style="margin-bottom:5px"><b>Khách hàng:</b> ${item.c[1]?.v || 'N/A'}</p>
+                        <p style="margin-bottom:5px"><b>Biển số xe:</b> <span style="color:var(--primary); font-weight:700">${item.c[5]?.v || 'N/A'}</span></p>
+                        <p style="margin-bottom:5px"><b>Điện thoại:</b> ${item.c[2]?.v || 'N/A'}</p>
+                        <p style="margin-bottom:5px"><b>Dịch vụ:</b> ${item.c[4]?.v || 'N/A'}</p>
+                        <p style="margin-bottom:5px"><b>Ngày lắp đặt:</b> ${item.c[0]?.f || item.c[0]?.v || 'N/A'}</p>
+                        <p style="margin-bottom:0"><b>Bảo hành đến:</b> <b style="color:var(--price-red)">${item.c[6]?.f || item.c[6]?.v || 'Hết hạn'}</b></p>
                     </div>`;
                 });
                 resDiv.innerHTML = html;
             } else {
                 resDiv.style.display = 'block';
-                resDiv.innerHTML = `<p style="color:red; font-weight:700">Không tìm thấy thông tin. Vui lòng kiểm tra lại hoặc gọi Hotline 0907.590.123</p>`;
+                resDiv.innerHTML = `<div style="text-align:center; padding:20px; color:red; font-weight:700; background:#fff5f5; border-radius:10px">Không tìm thấy thông tin khớp. Vui lòng kiểm tra lại hoặc liên hệ Hotline 0907.590.123</div>`;
             }
         }
 
@@ -307,26 +302,25 @@
             document.getElementById('m-price').innerText = p.gia > 0 ? p.gia.toLocaleString() + 'đ' : 'Liên hệ';
             document.getElementById('m-img').src = `data/${p.ma}.jpg`;
             document.getElementById('m-specs').innerHTML = p.mota.split('\n').filter(l=>l).map(l=>`<li>${l}</li>`).join('');
-            document.getElementById('m-zalo-link').href = `https://zalo.me/0907590123?text=Tư vấn sản phẩm: ${p.ten}`;
+            document.getElementById('m-zalo').href = `https://zalo.me/0907590123?text=Tư vấn sản phẩm: ${p.ten}`;
             document.getElementById('pModal').style.display = 'flex';
         }
-
         function closeModal() { document.getElementById('pModal').style.display = 'none'; }
 
         async function init() {
             try {
-                // Trang chủ & Lĩnh vực
+                // Load Trang chủ & Info
                 const home = await fetchData('Trang_Chu');
                 document.getElementById('intro-text').innerHTML = home[2]?.c[1]?.v || "";
-                const actLines = (home[3]?.c[1]?.v || "").split('\n').filter(l=>l);
-                document.getElementById('activity-list').innerHTML = actLines.map(l => {
+                const acts = (home[3]?.c[1]?.v || "").split('\n').filter(l=>l);
+                document.getElementById('activity-list').innerHTML = acts.map(l => {
                     let [t, d] = l.split(':');
                     return `<div class="activity-item"><h4>${t}</h4><p style="font-size:0.8rem; color:#888">${d||''}</p></div>`;
                 }).join('');
                 document.getElementById('f-intro').innerText = home[4]?.c[1]?.v || "";
                 document.getElementById('f-contact').innerHTML = (home[5]?.c[1]?.v || "").split('\n').map(l=>`<li>${l}</li>`).join('');
 
-                // Sản phẩm
+                // Load Sản Phẩm
                 const prods = await fetchData('San_Pham');
                 products = prods.map(r => ({ ma: r.c[0]?.v, ten: r.c[1]?.v, gia: r.c[3]?.v || 0, mota: r.c[4]?.v || "" })).filter(x=>x.ma && x.ma != "Mã");
                 document.getElementById('product-grid').innerHTML = products.map(p => `
@@ -338,19 +332,18 @@
                     </div>
                 `).join('');
 
-                // Dự án/Khách hàng
-                const projects = await fetchData('Du_An');
-                let pjH = projects.slice(1).map(pj => `<div class="proj-card"><img src="data/${pj.c[0]?.v}.jpg"><h4>${pj.c[1]?.v || ''}</h4></div>`).join('');
+                // Load Dự án/Khách hàng
+                const pjs = await fetchData('Du_An');
+                let pjH = pjs.slice(1).map(pj => `<div class="proj-card"><img src="data/${pj.c[0]?.v}.jpg"><h4>${pj.c[1]?.v || ''}</h4></div>`).join('');
                 document.getElementById('project-list').innerHTML = pjH + pjH;
 
-                // Bảo hành
+                // Load Bảo Hành
                 warrantyData = await fetchData('BaoHanh');
 
                 document.getElementById('loader').style.display = 'none';
                 setInterval(() => moveSlide(1), 5000);
             } catch (e) { console.error(e); }
         }
-
         init();
     </script>
 </body>
