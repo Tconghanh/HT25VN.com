@@ -3,216 +3,221 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tconghanh | Ultimate Windows Toolkit</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;800&display=swap" rel="stylesheet">
+    <title>Khang Gia Phúc - Giải Pháp Chuyên Nghiệp</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
-        :root {
-            --primary: #0078d4;
-            --accent: #00f2fe;
-            --bg-dark: #030305;
-            --glass: rgba(255, 255, 255, 0.03);
-            --glass-border: rgba(255, 255, 255, 0.08);
-            --text: #ffffff;
-            --sub-text: #a0a0a0;
-        }
-
-        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Plus Jakarta Sans', sans-serif; }
-        body { background-color: var(--bg-dark); color: var(--text); overflow-x: hidden; min-height: 100vh; line-height: 1.6; }
-
-        /* Hiệu ứng nền */
-        #particles-js { position: fixed; width: 100%; height: 100%; z-index: -1; background: radial-gradient(circle at top right, #1a1a2e 0%, #030305 100%); }
-
-        .container { max-width: 1200px; margin: 0 auto; padding: 60px 20px; }
-
-        header { text-align: center; margin-bottom: 50px; animation: fadeInUp 0.8s ease; }
-        header h1 { font-size: 3.5rem; font-weight: 800; letter-spacing: -2px; background: linear-gradient(to right, #fff, var(--accent)); -webkit-background-clip: text; -webkit-text-fill-color: transparent; }
-        header p { color: var(--sub-text); font-size: 0.9rem; letter-spacing: 4px; text-transform: uppercase; margin-top: 10px; }
-
-        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 25px; }
-
-        /* Card Styling */
-        .card {
-            background: var(--glass); backdrop-filter: blur(15px); border: 1px solid var(--glass-border);
-            border-radius: 28px; padding: 30px; transition: all 0.4s cubic-bezier(0.165, 0.84, 0.44, 1);
-            display: flex; flex-direction: column; justify-content: space-between;
-        }
-        .card:hover { transform: translateY(-8px); border-color: var(--accent); background: rgba(255, 255, 255, 0.07); box-shadow: 0 20px 40px rgba(0, 242, 254, 0.15); }
-        .card h2 { font-size: 1.2rem; margin-bottom: 15px; display: flex; align-items: center; gap: 12px; }
-        .card h2 i { color: var(--accent); }
-        .card p { color: var(--sub-text); font-size: 0.85rem; margin-bottom: 20px; }
-
-        /* PowerShell Section */
-        .ps-section { grid-column: 1 / -1; background: linear-gradient(145deg, rgba(0, 120, 212, 0.1), rgba(0, 0, 0, 0.3)); }
-        .cmd-group { display: grid; grid-template-columns: repeat(auto-fit, minmax(400px, 1fr)); gap: 20px; }
-        .cmd-box { 
-            background: #000; border: 1px solid #333; padding: 15px; border-radius: 12px;
-            font-family: 'Consolas', monospace; font-size: 0.85rem; cursor: pointer;
-            display: flex; justify-content: space-between; align-items: center; transition: 0.3s;
-        }
-        .cmd-box:hover { border-color: var(--accent); box-shadow: 0 0 15px rgba(0, 242, 254, 0.2); }
-        .cmd-box span { color: #00ff88; }
-
-        /* Explorer Section */
-        .explorer-section { grid-column: 1 / -1; margin-top: 30px; }
-        .explorer-window { background: rgba(10, 10, 15, 0.8); border: 1px solid var(--glass-border); border-radius: 24px; overflow: hidden; box-shadow: 0 40px 100px rgba(0,0,0,0.6); }
-        .exp-header { padding: 18px 30px; background: rgba(255,255,255,0.03); display: flex; justify-content: space-between; align-items: center; border-bottom: 1px solid var(--glass-border); }
-        .exp-path { background: rgba(0,0,0,0.4); padding: 6px 15px; border-radius: 8px; font-size: 0.75rem; color: #777; border: 1px solid #222; }
-        
-        .file-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 15px; padding: 30px; }
-        .file-item { 
-            display: flex; flex-direction: column; align-items: center; gap: 10px; padding: 20px; 
-            border-radius: 18px; transition: 0.3s; text-decoration: none; color: #fff; text-align: center; border: 1px solid transparent;
-        }
-        .file-item:hover { background: rgba(255,255,255,0.05); border-color: var(--glass-border); transform: scale(1.05); }
-        .file-item i { font-size: 2.8rem; filter: drop-shadow(0 5px 15px rgba(0,0,0,0.3)); }
-        .file-item span { font-size: 0.8rem; font-weight: 600; color: #ddd; word-break: break-all; }
-        .file-size { font-size: 0.7rem; color: #555; }
-
-        /* Icon Colors */
-        .fa-folder { color: #ffca28; }
-        .fa-compact-disc { color: #b0bec5; }
-        .fa-file-archive { color: #ba68c8; }
-        .fa-file-code { color: #4fc3f7; }
-        .fa-file-pdf { color: #ff4d4d; }
-        .fa-image { color: #4caf50; }
-
-        /* Buttons */
-        .btn { display: inline-flex; align-items: center; justify-content: center; padding: 12px 20px; border-radius: 14px; font-weight: 700; font-size: 0.85rem; text-decoration: none; transition: 0.3s; gap: 8px; }
-        .btn-primary { background: var(--primary); color: #fff; }
-        .btn-outline { border: 1px solid var(--glass-border); color: #fff; background: rgba(255,255,255,0.02); }
-        .btn-soft { background: linear-gradient(135deg, #ff416c, #ff4b2b); color: #fff; }
-        .btn:hover { filter: brightness(1.2); }
-
-        #toast { visibility: hidden; min-width: 200px; background: #fff; color: #000; text-align: center; border-radius: 12px; padding: 15px; position: fixed; z-index: 1000; left: 50%; bottom: 40px; transform: translateX(-50%); font-weight: 800; }
-        #toast.show { visibility: visible; animation: slideUp 0.4s forwards, fadeOut 0.4s 2.5s forwards; }
-
-        @keyframes fadeInUp { from { opacity: 0; transform: translateY(20px); } to { opacity: 1; transform: translateY(0); } }
-        @keyframes slideUp { from { bottom: 0; opacity: 0; } to { bottom: 40px; opacity: 1; } }
-        @keyframes fadeOut { from { opacity: 1; } to { opacity: 0; } }
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
+        body { font-family: 'Inter', sans-serif; scroll-behavior: smooth; }
+        .glass-nav { background: rgba(255, 255, 255, 0.8); backdrop-filter: blur(10px); }
+        .hero-gradient { background: linear-gradient(135deg, #1e3a8a 0%, #3b82f6 100%); }
+        .loader { border-top-color: #3b82f6; animation: spinner 1.5s linear infinite; }
+        @keyframes spinner { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
     </style>
 </head>
-<body>
+<body class="bg-gray-50 text-gray-800">
 
-    <div id="particles-js"></div>
+    <!-- Loading Screen -->
+    <div id="loader" class="fixed inset-0 z-[100] bg-white flex items-center justify-center">
+        <div class="loader ease-linear rounded-full border-4 border-t-4 border-gray-200 h-12 w-12"></div>
+    </div>
 
-    <div class="container">
-        <header>
-            <h1>TCONGHANH TOOLS</h1>
-            <p>Windows & Web Professional Manager</p>
-        </header>
-
-        <div class="grid">
-            <div class="card">
-                <h2><i class="fas fa-table"></i> Data Quản Lý</h2>
-                <p>Hệ thống quản lý dữ liệu trực tuyến qua Google Sheets.</p>
-                <a href="https://docs.google.com/spreadsheets/d/1knLdhA1j69Qqfa6nMIe20vfufQnvGr4THpehnK0mHPk" target="_blank" class="btn btn-outline">Mở Sheets</a>
+    <!-- Navigation -->
+    <nav class="fixed w-full z-50 glass-nav shadow-sm">
+        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
+            <div class="text-2xl font-bold text-blue-700">KHANG GIA PHÚC</div>
+            <div class="hidden md:flex space-x-8 font-medium">
+                <a href="#TrangChu" class="hover:text-blue-600 transition">Trang Chủ</a>
+                <a href="#SanPham" class="hover:text-blue-600 transition">Sản Phẩm</a>
+                <a href="#DuAn" class="hover:text-blue-600 transition">Dự Án</a>
+                <a href="#BaoHanh" class="hover:text-blue-600 transition">Bảo Hành</a>
             </div>
+            <a href="tel:0844900099" class="bg-blue-600 text-white px-5 py-2 rounded-full hover:bg-blue-700 transition">
+                <i class="fas fa-phone-alt mr-2"></i>0844.900.099
+            </a>
+        </div>
+    </nav>
 
-            <div class="card">
-                <h2><i class="fab fa-github"></i> Github Data</h2>
-                <p>Quản lý mã nguồn và kho ảnh trực tiếp qua Github Dev.</p>
-                <a href="https://github.dev/Tconghanh/khanggiaphuc.com/" target="_blank" class="btn btn-outline">Mở Github</a>
+    <!-- Section: Trang Chủ (Hero) -->
+    <section id="TrangChu" class="pt-32 pb-20 hero-gradient text-white overflow-hidden">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-2 gap-10 items-center">
+            <div data-aos="fade-right">
+                <h1 id="hero-title" class="text-5xl font-extrabold mb-6">Đang tải dữ liệu...</h1>
+                <p id="hero-desc" class="text-xl opacity-90 mb-8 font-light">Vui lòng đợi trong giây lát khi chúng tôi kết nối với hệ thống dữ liệu.</p>
+                <button class="bg-white text-blue-700 px-8 py-3 rounded-lg font-bold shadow-lg hover:bg-gray-100 transition">Khám Phá Ngay</button>
             </div>
-
-            <div class="card" style="border-top: 4px solid #ff416c;">
-                <h2><i class="fas fa-box-open"></i> HTCG Soft</h2>
-                <p>Kho phần mềm tổng hợp đầy đủ dành cho kỹ thuật viên.</p>
-                <a href="https://htcg.vn/soft/" target="_blank" class="btn btn-soft">Tải Phần Mềm</a>
-            </div>
-
-            <div class="card">
-                <h2><i class="fab fa-windows"></i> Microsoft ISO</h2>
-                <p>Tải Windows 10, 11 chính chủ từ Microsoft.</p>
-                <a href="https://www.microsoft.com/software-download/" target="_blank" class="btn btn-primary">Tải ISO</a>
-            </div>
-
-            <div class="card">
-                <h2><i class="fas fa-briefcase"></i> DLC Boot</h2>
-                <p>Công cụ cứu hộ đa năng nổi tiếng (Trần Duy Linh).</p>
-                <a href="https://dlcboot.com/" target="_blank" class="btn btn-outline">Vào Website</a>
-            </div>
-
-            <div class="card">
-                <h2><i class="fas fa-tools"></i> Anhdv Boot</h2>
-                <p>Bộ WinPE cứu hộ ổn định và tương thích cao.</p>
-                <a href="https://anhdvboot.com/" target="_blank" class="btn btn-outline">Vào Website</a>
-            </div>
-
-            <!-- PowerShell Scripts -->
-            <div class="card ps-section">
-                <h2 style="margin-bottom: 15px;"><i class="fas fa-terminal"></i> PowerShell Automation (Click để Copy)</h2>
-                <div class="cmd-group">
-                    <div class="cmd-box" onclick="copyText('iex (irm https://get.activated.win)')">
-                        <span>iex (irm https://get.activated.win)</span><i class="far fa-copy"></i>
-                    </div>
-                    <div class="cmd-box" onclick="copyText('& ([scriptblock]::Create((irm https://debloat.raphi.re/)))')">
-                        <span>& ([scriptblock]::Create((irm https://debloat.raphi.re/)))</span><i class="far fa-copy"></i>
-                    </div>
-                </div>
-            </div>
-
-            <!-- Local Explorer -->
-            <div class="explorer-section">
-                <div class="explorer-window">
-                    <div class="exp-header">
-                        <h2><i class="fas fa-hdd" style="color: var(--accent);"></i> Local File Explorer</h2>
-                        <div class="exp-path">This PC > Local Toolkit > Software</div>
-                    </div>
-                    <div class="file-grid" id="fileContainer"></div>
+            <div data-aos="fade-left" class="relative">
+                <div class="w-full h-80 bg-blue-400/30 rounded-3xl backdrop-blur-md border border-white/20 flex items-center justify-center">
+                    <i class="fas fa-chart-line text-8xl opacity-50"></i>
                 </div>
             </div>
         </div>
-    </div>
+    </section>
 
-    <div id="toast">Đã sao chép lệnh thành công!</div>
+    <!-- Section: Sản Phẩm -->
+    <section id="SanPham" class="py-20 max-w-7xl mx-auto px-4">
+        <div class="text-center mb-16" data-aos="fade-up">
+            <h2 class="text-3xl font-bold text-gray-900 mb-4 uppercase tracking-widest">Sản Phẩm Của Chúng Tôi</h2>
+            <div class="w-20 h-1 bg-blue-600 mx-auto"></div>
+        </div>
+        <div id="product-list" class="grid md:grid-cols-3 gap-8">
+            <!-- Data from Sheet SanPham will be injected here -->
+        </div>
+    </section>
 
-    <script src="data.js"></script>
-    <script src="https://cdn.jsdelivr.net/particles.js/2.0.0/particles.min.js"></script>
+    <!-- Section: Dự Án -->
+    <section id="DuAn" class="py-20 bg-gray-100">
+        <div class="max-w-7xl mx-auto px-4">
+            <div class="flex justify-between items-end mb-12" data-aos="fade-up">
+                <div>
+                    <h2 class="text-3xl font-bold text-gray-900">Dự Án Tiêu Biểu</h2>
+                    <p class="text-gray-500 mt-2">Những thành tựu mà Khang Gia Phúc đã thực hiện</p>
+                </div>
+            </div>
+            <div id="project-list" class="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
+                 <!-- Data from Sheet DuAn will be injected here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- Section: Bảo Hành -->
+    <section id="BaoHanh" class="py-20 max-w-7xl mx-auto px-4">
+        <div class="bg-white rounded-2xl shadow-xl overflow-hidden" data-aos="zoom-in">
+            <div class="p-8 bg-blue-700 text-white">
+                <h2 class="text-2xl font-bold">Tra Cứu Bảo Hành</h2>
+                <p class="opacity-80">Thông tin bảo hành và hỗ trợ kỹ thuật</p>
+            </div>
+            <div class="p-8 overflow-x-auto">
+                <table class="w-full text-left">
+                    <thead>
+                        <tr class="border-b-2 border-gray-100">
+                            <th class="py-4 px-4">Mã Đơn</th>
+                            <th class="py-4 px-4">Khách Hàng</th>
+                            <th class="py-4 px-4">Thời Hạn</th>
+                            <th class="py-4 px-4">Trạng Thái</th>
+                        </tr>
+                    </thead>
+                    <tbody id="warranty-data">
+                        <!-- Data from Sheet BaoHanh will be injected here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </section>
+
+    <!-- Footer -->
+    <footer class="bg-slate-900 text-white pt-16 pb-8">
+        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-12 border-b border-gray-700 pb-12">
+            <div>
+                <h3 class="text-2xl font-bold mb-6 text-blue-400">KHANG GIA PHÚC</h3>
+                <p class="text-gray-400 leading-relaxed">Luôn nỗ lực mang lại giá trị tốt nhất cho khách hàng thông qua các giải pháp bền vững và chuyên nghiệp.</p>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-6 uppercase tracking-wider">Thông Tin Hỗ Trợ</h4>
+                <ul class="space-y-4 text-gray-400">
+                    <li><i class="fas fa-globe mr-3 text-blue-500"></i> WEBSITE: <a href="https://www.khanggiaphuc.com" class="hover:text-white transition">www.khanggiaphuc.com</a></li>
+                    <li><i class="fas fa-phone-alt mr-3 text-blue-500"></i> HOTLINE: 0844.900.099</li>
+                    <li><i class="fas fa-envelope mr-3 text-blue-500"></i> EMAIL: khanggiaphuc.com@gmail.com</li>
+                </ul>
+            </div>
+            <div>
+                <h4 class="text-lg font-semibold mb-6 uppercase tracking-wider">Theo Dõi</h4>
+                <div class="flex space-x-4">
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="w-10 h-10 rounded-full bg-gray-800 flex items-center justify-center hover:bg-blue-600 transition"><i class="fab fa-youtube"></i></a>
+                </div>
+            </div>
+        </div>
+        <div class="text-center mt-8 text-gray-500 text-sm">
+            &copy; 2024 Khang Gia Phúc. All rights reserved.
+        </div>
+    </footer>
+
+    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        function renderFiles() {
-            const container = document.getElementById('fileContainer');
-            if (typeof myFiles === 'undefined' || myFiles.length === 0) {
-                container.innerHTML = '<p style="grid-column:1/-1; text-align:center; padding:40px; color:#444;">Chưa có dữ liệu. Hãy chạy Update.ps1!</p>';
-                return;
+        AOS.init({ duration: 1000, once: true });
+
+        const SHEET_ID = '18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE';
+        
+        async function fetchSheetData(tabName) {
+            const url = `https://docs.google.com/spreadsheets/d/${SHEET_ID}/gviz/tq?tqx=out:json&sheet=${tabName}`;
+            try {
+                const response = await fetch(url);
+                const text = await response.text();
+                // Dọn dẹp dữ liệu JSON trả về từ Google
+                const jsonData = JSON.parse(text.substr(47).slice(0, -2));
+                return jsonData.table.rows;
+            } catch (error) {
+                console.error('Lỗi khi lấy dữ liệu:', error);
+                return [];
             }
-
-            const imgExts = ['jpg','jpeg','png','gif','webp','svg','bmp'];
-            
-            // Sắp xếp: Không phải ảnh lên trước (A-Z), Ảnh xuống sau (A-Z)
-            const sorted = [...myFiles].sort((a, b) => {
-                const extA = a.name.split('.').pop().toLowerCase();
-                const extB = b.name.split('.').pop().toLowerCase();
-                const isImgA = imgExts.includes(extA);
-                const isImgB = imgExts.includes(extB);
-                if (!isImgA && isImgB) return -1;
-                if (isImgA && !isImgB) return 1;
-                return a.name.localeCompare(b.name, undefined, { numeric: true, sensitivity: 'base' });
-            });
-
-            container.innerHTML = sorted.map(file => {
-                const ext = file.name.split('.').pop().toLowerCase();
-                let icon = 'fa-file';
-                if(file.type === 'folder') icon = 'fa-folder';
-                else if(ext === 'pdf') icon = 'fa-file-pdf';
-                else if(ext === 'iso') icon = 'fa-compact-disc';
-                else if(['zip','rar','7z'].includes(ext)) icon = 'fa-file-archive';
-                else if(ext === 'exe' || ext === 'msi') icon = 'fa-file-code';
-                else if(imgExts.includes(ext)) icon = 'fa-image';
-
-                return `
-                    <a href="${file.link}" class="file-item" target="_blank">
-                        <i class="fas ${icon}"></i>
-                        <span>${file.name}</span>
-                        <div class="file-size">${file.size}</div>
-                    </a>
-                `;
-            }).join('');
         }
 
-        renderFiles();
-        particlesJS("particles-js", { "particles": { "number": { "value": 50 }, "color": { "value": "#00f2fe" }, "opacity": { "value": 0.1 }, "size": { "value": 2 }, "line_linked": { "enable": true, "distance": 150, "color": "#00f2fe", "opacity": 0.05 } } });
-        function copyText(text) { navigator.clipboard.writeText(text).then(() => { const t = document.getElementById("toast"); t.className = "show"; setTimeout(() => { t.className = ""; }, 3000); }); }
+        async function initPage() {
+            // 1. Dữ liệu Trang Chủ
+            const homeData = await fetchSheetData('TrangChu');
+            if (homeData.length > 0) {
+                document.getElementById('hero-title').innerText = homeData[0].c[0]?.v || 'Khang Gia Phúc';
+                document.getElementById('hero-desc').innerText = homeData[0].c[1]?.v || 'Chào mừng bạn đến với chúng tôi';
+            }
+
+            // 2. Dữ liệu Sản Phẩm
+            const productData = await fetchSheetData('SanPham');
+            const productContainer = document.getElementById('product-list');
+            productData.forEach((row, index) => {
+                productContainer.innerHTML += `
+                    <div class="bg-white p-6 rounded-xl shadow-md border border-gray-100 hover:shadow-2xl transition transform hover:-translate-y-2" data-aos="fade-up" data-aos-delay="${index * 100}">
+                        <div class="w-full h-48 bg-gray-200 rounded-lg mb-4 flex items-center justify-center">
+                            <i class="fas fa-box text-4xl text-gray-400"></i>
+                        </div>
+                        <h3 class="text-xl font-bold mb-2">${row.c[0]?.v || 'Sản phẩm'}</h3>
+                        <p class="text-blue-600 font-bold mb-3">${row.c[1]?.v || 'Liên hệ'}</p>
+                        <p class="text-gray-500 text-sm line-clamp-3">${row.c[2]?.v || 'Mô tả ngắn gọn về sản phẩm này.'}</p>
+                    </div>
+                `;
+            });
+
+            // 3. Dữ liệu Dự Án
+            const projectData = await fetchSheetData('DuAn');
+            const projectContainer = document.getElementById('project-list');
+            projectData.forEach((row, index) => {
+                projectContainer.innerHTML += `
+                    <div class="group relative overflow-hidden rounded-xl h-64 shadow-lg" data-aos="zoom-in">
+                        <div class="absolute inset-0 bg-blue-900/60 group-hover:bg-blue-800/40 transition duration-500"></div>
+                        <div class="absolute bottom-0 p-6">
+                            <span class="text-xs bg-blue-500 text-white px-2 py-1 rounded mb-2 inline-block">Dự án</span>
+                            <h4 class="text-white font-bold text-lg leading-tight">${row.c[0]?.v || 'Tên Dự Án'}</h4>
+                            <p class="text-gray-300 text-xs mt-2 italic">${row.c[1]?.v || 'Vị trí/Địa chỉ'}</p>
+                        </div>
+                    </div>
+                `;
+            });
+
+            // 4. Dữ liệu Bảo Hành
+            const warrantyData = await fetchSheetData('BaoHanh');
+            const warrantyContainer = document.getElementById('warranty-data');
+            warrantyData.forEach(row => {
+                warrantyContainer.innerHTML += `
+                    <tr class="border-b border-gray-50 hover:bg-gray-50 transition">
+                        <td class="py-4 px-4 font-semibold text-blue-600">${row.c[0]?.v || '-'}</td>
+                        <td class="py-4 px-4 font-medium">${row.c[1]?.v || '-'}</td>
+                        <td class="py-4 px-4 text-gray-500">${row.c[2]?.v || '-'}</td>
+                        <td class="py-4 px-4">
+                            <span class="bg-green-100 text-green-700 px-3 py-1 rounded-full text-xs font-bold">
+                                ${row.c[3]?.v || 'Hoạt động'}
+                            </span>
+                        </td>
+                    </tr>
+                `;
+            });
+
+            // Tắt Loader
+            document.getElementById('loader').style.display = 'none';
+        }
+
+        // Chạy khởi tạo
+        initPage();
     </script>
 </body>
 </html>
