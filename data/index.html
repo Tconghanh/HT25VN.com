@@ -3,276 +3,283 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Hệ Thống Quản Trị Khang Gia Phúc - Premium Dashboard</title>
-    <!-- Thư viện CSS & Font -->
+    <title>KGP Dashboard | Quản Trị Hệ Thống</title>
+    <!-- Thư viện hỗ trợ -->
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f1f5f9; color: #0f172a; overflow-x: hidden; }
-        
-        /* Hiệu ứng Header Kính mờ */
-        .glass-header {
-            background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background: #f8fafc; color: #1e293b; }
+
+        /* Hiệu ứng kính mờ (Glassmorphism) cực đại */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.8);
+            backdrop-filter: blur(20px);
+            -webkit-backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.5);
         }
 
-        /* Nút Auth Custom */
+        /* Nút Auth Premium */
         .btn-auth {
-            @apply flex items-center gap-2 px-5 py-2.5 rounded-full font-bold text-sm transition-all duration-300 shadow-sm active:scale-95 border;
+            @apply flex items-center gap-2 px-5 py-2.5 rounded-2xl font-bold text-sm transition-all duration-300 shadow-sm border active:scale-95;
         }
-        .login-style { background: white; border-color: #e2e8f0; color: #334155; }
-        .login-style:hover { background: #f8fafc; box-shadow: 0 4px 12px rgba(0,0,0,0.05); transform: translateY(-1px); }
+        .login-btn { background: #ffffff; border-color: #e2e8f0; color: #475569; }
+        .login-btn:hover { background: #f1f5f9; transform: translateY(-1px); box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1); }
         
-        .logout-style { background: #fff1f2; border-color: #fecaca; color: #e11d48; }
-        .logout-style:hover { background: #ffe4e6; box-shadow: 0 4px 12px rgba(225, 29, 72, 0.1); transform: translateY(-1px); }
+        .logout-btn { background: #fff1f2; border-color: #fecaca; color: #e11d48; }
+        .logout-btn:hover { background: #ffe4e6; transform: translateY(-1px); }
 
-        /* Menu ngang Mobile */
-        .nav-scroll {
+        /* Menu ngang cho cả PC & Mobile */
+        .tab-scroll {
             display: flex;
             overflow-x: auto;
             scrollbar-width: none;
-            gap: 10px;
+            gap: 12px;
+            padding: 4px 0;
         }
-        .nav-scroll::-webkit-scrollbar { display: none; }
+        .tab-scroll::-webkit-scrollbar { display: none; }
 
-        .tab-btn {
-            @apply px-6 py-2.5 rounded-xl font-bold text-sm transition-all duration-300 flex items-center gap-2 whitespace-nowrap;
+        .tab-link {
+            @apply px-6 py-3 rounded-2xl font-bold text-xs transition-all duration-300 flex items-center gap-2 whitespace-nowrap uppercase tracking-wider border border-transparent;
             color: #64748b;
         }
-        .tab-btn.active {
-            background: #2563eb;
-            color: white;
-            box-shadow: 0 10px 15px -3px rgba(37, 99, 235, 0.25);
+        .tab-link.active {
+            @apply bg-blue-600 text-white shadow-lg shadow-blue-200;
+            border-color: #3b82f6;
         }
 
-        /* Khung chứa bảng tính */
-        .workspace-area {
+        /* Khu vực làm việc */
+        .main-workspace {
             height: calc(100vh - 280px);
             min-height: 550px;
-            background: white;
-            border-radius: 20px;
-            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.05);
-            border: 1px solid rgba(226, 232, 240, 0.8);
+            background: #ffffff;
+            border-radius: 30px;
+            box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+            border: 8px solid white;
             overflow: hidden;
+            position: relative;
         }
         iframe { width: 100%; height: 100%; border: none; }
 
-        #progress-line {
+        /* Thanh tiến trình */
+        #loader-bar {
             position: fixed;
-            top: 0; left: 0; height: 3px;
-            background: linear-gradient(90deg, #2563eb, #7c3aed);
+            top: 0; left: 0; height: 4px;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
             width: 0%; z-index: 1000;
-            transition: width 0.3s ease;
+            transition: width 0.4s ease;
         }
     </style>
 </head>
-<body>
+<body class="antialiased">
 
-    <div id="progress-line"></div>
+    <div id="loader-bar"></div>
 
-    <!-- Header & Nav -->
-    <header class="glass-header sticky top-0 z-50">
-        <div class="max-w-[1500px] mx-auto px-4 lg:px-8">
-            <div class="flex justify-between items-center h-20">
-                <!-- Branding -->
-                <div class="flex items-center gap-4">
-                    <img src="https://www.khanggiaphuc.com/data/logo.jpg" alt="Logo KGP" class="h-12 w-auto rounded-lg shadow-sm border border-white">
-                    <div>
-                        <h1 class="text-lg font-extrabold text-slate-900 leading-none tracking-tight uppercase">Khang Gia Phúc</h1>
-                        <p class="text-[10px] font-semibold text-blue-600 mt-1 uppercase tracking-widest flex items-center gap-2">
-                            Hệ thống quản trị <span class="text-slate-300 font-normal">|</span> <span class="text-slate-500 lowercase font-medium tracking-normal italic">by tconghanh 0938608602</span>
+    <!-- Header & Navigation -->
+    <header class="glass-nav sticky top-0 z-50">
+        <div class="max-w-[1536px] mx-auto px-4 lg:px-8">
+            <div class="flex justify-between items-center h-24">
+                <!-- Brand Logo & Info -->
+                <div class="flex items-center gap-5">
+                    <img src="https://www.khanggiaphuc.com/data/logo.jpg" alt="Logo KGP" class="h-14 w-auto rounded-2xl shadow-md border-2 border-white">
+                    <div class="hidden sm:block">
+                        <h1 class="text-xl font-extrabold text-slate-900 leading-none tracking-tight">KHANG GIA PHÚC</h1>
+                        <p class="text-[10px] font-bold text-blue-600 mt-1 uppercase tracking-[0.2em] opacity-80">
+                            Hệ Thống Quản Trị <span class="text-slate-300 mx-1">|</span> <span class="text-slate-500 lowercase font-medium tracking-normal italic">by tconghanh 0938608602</span>
                         </p>
                     </div>
                 </div>
 
-                <!-- Auth Button -->
-                <div id="auth-wrapper">
-                    <button id="auth-btn" onclick="handleAuthAction()" class="btn-auth login-style">
-                        <i id="auth-icon" class="fa-brands fa-google text-lg"></i>
-                        <span id="auth-text" class="hidden sm:inline">Đăng nhập Google</span>
-                        <span id="auth-text-mobile" class="sm:hidden">Đăng nhập</span>
+                <!-- Auth Zone -->
+                <div id="auth-container">
+                    <button id="auth-toggle" onclick="handleAuth()" class="btn-auth login-btn">
+                        <i id="auth-icon" class="fa-brands fa-google"></i>
+                        <span id="auth-label" class="hidden md:inline">Đăng nhập Google</span>
+                        <span class="md:hidden">Auth</span>
                     </button>
                 </div>
             </div>
 
-            <!-- Navigation Tabs -->
-            <div class="pb-3 overflow-hidden">
-                <nav class="nav-scroll">
-                    <button onclick="changeTab(this, '0')" class="tab-btn active">
-                        <i class="fa-solid fa-house-chimney text-xs"></i> TRANG CHỦ
+            <!-- Custom Tabs -->
+            <div class="pb-4">
+                <nav class="tab-scroll">
+                    <button onclick="switchTab(this, '0')" class="tab-link active">
+                        <i class="fa-solid fa-house-user"></i> Trang Chủ
                     </button>
-                    <button onclick="changeTab(this, '620957187')" class="tab-btn">
-                        <i class="fa-solid fa-shield-halved text-xs"></i> BẢO HÀNH
+                    <button onclick="switchTab(this, '620957187')" class="tab-link">
+                        <i class="fa-solid fa-shield-virus"></i> Bảo Hành
                     </button>
-                    <button onclick="changeTab(this, '895747298')" class="tab-btn">
-                        <i class="fa-solid fa-boxes-stacked text-xs"></i> SẢN PHẨM
+                    <button onclick="switchTab(this, '895747298')" class="tab-link">
+                        <i class="fa-solid fa-layer-group"></i> Sản Phẩm
                     </button>
-                    <button onclick="changeTab(this, '809858153')" class="tab-btn">
-                        <i class="fa-solid fa-users-gear text-xs"></i> KHÁCH HÀNG
+                    <button onclick="switchTab(this, '809858153')" class="tab-link">
+                        <i class="fa-solid fa-user-gear"></i> Khách Hàng
+                    </button>
+                    <button onclick="switchTab(this, 'drive-folder')" class="tab-link">
+                        <i class="fa-solid fa-folder-tree"></i> Kho Dữ Liệu
                     </button>
                 </nav>
             </div>
         </div>
     </header>
 
-    <!-- Main Content -->
-    <main class="max-w-[1500px] mx-auto px-4 lg:px-8 py-6">
-        <div class="workspace-area" data-aos="fade-up">
-            <iframe id="sheet-iframe" src="https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal&gid=0"></iframe>
+    <!-- Main Workspace Area -->
+    <main class="max-w-[1536px] mx-auto px-4 lg:px-8 py-8">
+        <div class="main-workspace" data-aos="zoom-in-up">
+            <iframe id="app-frame" src="https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal&gid=0"></iframe>
         </div>
-        <div class="mt-4 flex flex-wrap justify-between items-center text-[11px] text-slate-400 font-bold px-2 uppercase tracking-widest">
-            <span class="flex items-center gap-2">
-                <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> 
-                Hệ thống dữ liệu Real-time
-            </span>
-            <p class="normal-case italic font-medium">Lưu ý: Bạn cần tài khoản Google có quyền chỉnh sửa để thay đổi dữ liệu bảng tính.</p>
+        <div class="mt-4 flex flex-col md:flex-row justify-between items-center gap-4 text-[11px] text-slate-400 font-bold uppercase tracking-widest px-4">
+            <div class="flex items-center gap-3">
+                <span class="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span>Hệ thống đồng bộ trực tiếp (Cloud Sync)</span>
+            </div>
+            <p class="italic normal-case font-medium">Lưu ý: Bạn cần được cấp quyền Editor để thực hiện chỉnh sửa dữ liệu.</p>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-[#0f172a] text-white pt-20 pb-10">
-        <div class="max-w-[1500px] mx-auto px-8">
-            <div class="grid grid-cols-1 lg:grid-cols-3 gap-16 border-b border-slate-800 pb-16">
-                <!-- About Column -->
-                <div class="space-y-6">
-                    <img src="https://www.khanggiaphuc.com/data/logo.jpg" alt="Logo Footer" class="h-10 rounded grayscale brightness-200">
-                    <h3 class="text-xl font-black tracking-tighter uppercase">Khang Gia Phúc</h3>
-                    <p class="text-slate-400 text-sm leading-relaxed max-w-sm">
-                        Cung cấp giải pháp số hóa dữ liệu và quản trị doanh nghiệp hiện đại. Tầm nhìn dẫn đầu trong việc ứng dụng công nghệ thực tế vào vận hành.
+    <!-- Professional Footer -->
+    <footer class="bg-slate-950 text-white mt-12 pt-20 pb-12">
+        <div class="max-w-[1536px] mx-auto px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-4 gap-16 border-b border-slate-800 pb-16">
+                <!-- Column 1: Intro -->
+                <div class="lg:col-span-2 space-y-6 text-center lg:text-left">
+                    <h3 class="text-3xl font-black tracking-tighter text-blue-500 uppercase">Khang Gia Phúc</h3>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-lg mx-auto lg:mx-0">
+                        Giải pháp công nghệ vượt trội, đồng hành cùng doanh nghiệp trong kỷ nguyên số. 
+                        Chúng tôi tối ưu hóa dữ liệu để kiến tạo giá trị bền vững.
                     </p>
-                </div>
-
-                <!-- Support Column -->
-                <div class="space-y-6">
-                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-blue-500">Thông Tin Hỗ Trợ</h4>
-                    <div class="space-y-4">
-                        <a href="https://www.khanggiaphuc.com" target="_blank" class="flex items-center gap-4 group">
-                            <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center group-hover:bg-blue-600 transition duration-300">
-                                <i class="fa-solid fa-globe"></i>
-                            </div>
-                            <span class="text-slate-300 group-hover:text-white text-sm font-semibold transition">www.khanggiaphuc.com</span>
-                        </a>
-                        <a href="tel:0844900099" class="flex items-center gap-4 group text-blue-400">
-                            <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center group-hover:bg-green-600 transition duration-300 text-white">
-                                <i class="fa-solid fa-phone-volume"></i>
-                            </div>
-                            <span class="group-hover:text-white text-lg font-black tracking-tighter transition">0844.900.099</span>
-                        </a>
-                        <a href="mailto:khanggiaphuc.com@gmail.com" class="flex items-center gap-4 group">
-                            <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center group-hover:bg-indigo-600 transition duration-300">
-                                <i class="fa-solid fa-envelope-open-text"></i>
-                            </div>
-                            <span class="text-slate-300 group-hover:text-white text-sm font-semibold transition">khanggiaphuc.com@gmail.com</span>
-                        </a>
-                    </div>
-                </div>
-
-                <!-- Social Column -->
-                <div class="space-y-6">
-                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-blue-500">Theo Dõi Chúng Tôi</h4>
-                    <div class="flex gap-4">
-                        <a href="https://www.facebook.com/congnghetrongtamtay1" target="_blank" class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-xl hover:bg-blue-600 hover:-translate-y-1 transition duration-300 shadow-lg">
+                    <div class="flex gap-4 justify-center lg:justify-start">
+                        <a href="https://www.facebook.com/congnghetrongtamtay1" target="_blank" class="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-xl hover:bg-blue-600 transition duration-500 shadow-xl">
                             <i class="fa-brands fa-facebook-f"></i>
                         </a>
-                        <a href="https://www.tiktok.com/@congnghetrongtamtay" target="_blank" class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center text-xl hover:bg-black hover:-translate-y-1 transition duration-300 shadow-lg border border-slate-700">
+                        <a href="https://www.tiktok.com/@congnghetrongtamtay" target="_blank" class="w-12 h-12 rounded-full bg-slate-900 flex items-center justify-center text-xl hover:bg-rose-600 transition duration-500 shadow-xl border border-slate-800">
                             <i class="fa-brands fa-tiktok"></i>
                         </a>
                     </div>
-                    <div class="pt-4">
-                        <p class="text-[10px] font-bold text-slate-600 uppercase italic">© 2024 Design & Logic by tconghanh</p>
+                </div>
+
+                <!-- Column 2: Support -->
+                <div class="space-y-6">
+                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-500">Thông Tin Hỗ Trợ</h4>
+                    <ul class="space-y-4">
+                        <li class="flex items-center gap-3 group">
+                            <i class="fa-solid fa-earth-americas text-blue-500"></i>
+                            <a href="https://www.khanggiaphuc.com" class="text-slate-300 group-hover:text-white transition text-sm">www.khanggiaphuc.com</a>
+                        </li>
+                        <li class="flex items-center gap-3 group">
+                            <i class="fa-solid fa-phone-volume text-blue-500"></i>
+                            <a href="tel:0844900099" class="text-white text-lg font-black tracking-tight group-hover:text-blue-400 transition">0844.900.099</a>
+                        </li>
+                        <li class="flex items-center gap-3 group">
+                            <i class="fa-solid fa-envelope-open-text text-blue-500"></i>
+                            <a href="mailto:khanggiaphuc.com@gmail.com" class="text-slate-300 group-hover:text-white transition text-sm">khanggiaphuc.com@gmail.com</a>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Column 3: Stats -->
+                <div class="space-y-6">
+                    <h4 class="text-xs font-black uppercase tracking-[0.3em] text-slate-500">Hệ Thống</h4>
+                    <div class="p-5 bg-slate-900 rounded-3xl border border-slate-800 space-y-3">
+                        <div class="flex justify-between text-[11px] font-bold">
+                            <span class="text-slate-500 italic">Version</span>
+                            <span class="text-blue-400">8.0.2 Stable</span>
+                        </div>
+                        <div class="flex justify-between text-[11px] font-bold">
+                            <span class="text-slate-500 italic">Security</span>
+                            <span class="text-green-500">Encrypted</span>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold text-slate-500 tracking-[0.2em] uppercase">
-                <p>KHANG GIA PHÚC | Quản Trị Hệ Thống</p>
-                <p>Root Domain: ht25vn.com</p>
+            <!-- Footer Bottom -->
+            <div class="pt-12 flex flex-col md:flex-row justify-between items-center gap-6 text-[10px] font-bold text-slate-600 tracking-[0.2em]">
+                <p>© 2024 KHANG GIA PHÚC | ALL RIGHTS RESERVED</p>
+                <p>DESIGNED & POWERED BY TCONGHANH | HT25VN.COM</p>
             </div>
         </div>
     </footer>
 
-    <!-- Scripts -->
+    <!-- Logic System -->
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
         AOS.init({ duration: 800, once: true });
 
-        const iframe = document.getElementById('sheet-iframe');
-        const progressLine = document.getElementById('progress-line');
-        const authBtn = document.getElementById('auth-btn');
-        const authText = document.getElementById('auth-text');
-        const authTextMob = document.getElementById('auth-text-mobile');
+        const mainFrame = document.getElementById('app-frame');
+        const loader = document.getElementById('loader-bar');
+        const authBtn = document.getElementById('auth-toggle');
+        const authLabel = document.getElementById('auth-label');
         const authIcon = document.getElementById('auth-icon');
-        const baseUrl = "https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal";
 
-        // Quản lý trạng thái Login
-        let isLoggedIn = localStorage.getItem('kgp_status') === 'active';
+        const SHEET_URL = "https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal";
+        const DRIVE_URL = "https://drive.google.com/embeddedfolderview?id=1dn5E5YMSmYHoq1IEJ9l84oVQeLaOJvFM#grid";
 
-        function updateUI() {
+        // Quản lý đăng nhập
+        let isLoggedIn = localStorage.getItem('kgp_premium_auth') === 'true';
+
+        function updateAuthUI() {
             if (isLoggedIn) {
-                authBtn.className = "btn-auth logout-style";
-                authText.innerText = "Đăng xuất hệ thống";
-                authTextMob.innerText = "Đăng xuất";
-                authIcon.className = "fa-solid fa-power-off text-lg";
+                authBtn.className = "btn-auth logout-btn";
+                authLabel.innerText = "Đăng xuất hệ thống";
+                authIcon.className = "fa-solid fa-right-from-bracket";
             } else {
-                authBtn.className = "btn-auth login-style";
-                authText.innerText = "Đăng nhập Google";
-                authTextMob.innerText = "Đăng nhập";
-                authIcon.className = "fa-brands fa-google text-lg";
+                authBtn.className = "btn-auth login-btn";
+                authLabel.innerText = "Đăng nhập Google";
+                authIcon.className = "fa-brands fa-google";
             }
         }
 
-        function handleAuthAction() {
+        function handleAuth() {
             if (!isLoggedIn) {
-                // Đăng nhập: Mở trang Google
                 window.open('https://accounts.google.com/ServiceLogin', '_blank');
-                localStorage.setItem('kgp_status', 'active');
+                localStorage.setItem('kgp_premium_auth', 'true');
                 isLoggedIn = true;
-                updateUI();
-                location.reload(); // Reload để nhận session mới trong iframe
+                updateAuthUI();
+                setTimeout(() => location.reload(), 500);
             } else {
-                // Đăng xuất: Xóa session và chuyển hướng về trang chủ root
-                if(confirm("Xác nhận đăng xuất và quay về trang chủ ht25vn.com?")) {
-                    localStorage.removeItem('kgp_status');
+                if(confirm("Bạn muốn đăng xuất và quay về trang chủ HT25VN.COM?")) {
+                    localStorage.removeItem('kgp_premium_auth');
                     isLoggedIn = false;
-                    updateUI();
-                    // Chuyển hướng về root của domain ht25vn.com
-                    window.location.href = "https://ht25vn.com"; 
+                    window.location.href = "https://ht25vn.com";
                 }
             }
         }
 
-        function changeTab(btn, gid) {
-            // Thanh tiến trình chạy
-            progressLine.style.width = "30%";
+        // Chuyển đổi nội dung Tab
+        function switchTab(btn, target) {
+            loader.style.width = "40%";
             
-            // Cập nhật giao diện nút
-            document.querySelectorAll('.tab-btn').forEach(t => t.classList.remove('active'));
+            // Xử lý UI Active
+            document.querySelectorAll('.tab-link').forEach(tab => tab.classList.remove('active'));
             btn.classList.add('active');
 
-            // Cập nhật Iframe
-            iframe.style.opacity = "0.2";
-            iframe.src = `${baseUrl}&gid=${gid}`;
+            // Xử lý Iframe
+            mainFrame.style.opacity = "0.2";
+            
+            if (target === 'drive-folder') {
+                mainFrame.src = DRIVE_URL;
+            } else {
+                mainFrame.src = `${SHEET_URL}&gid=${target}`;
+            }
 
-            iframe.onload = () => {
-                progressLine.style.width = "100%";
+            mainFrame.onload = () => {
+                loader.style.width = "100%";
                 setTimeout(() => {
-                    progressLine.style.width = "0%";
-                    iframe.style.opacity = "1";
-                    iframe.style.transition = "opacity 0.5s ease";
-                }, 300);
+                    loader.style.width = "0%";
+                    mainFrame.style.opacity = "1";
+                    mainFrame.style.transition = "opacity 0.5s ease-in-out";
+                }, 400);
             };
 
-            // Mobile: Cuộn nút tab đang chọn vào giữa
+            // Mobile view: cuộn tab vào giữa
             btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
 
-        // Chạy khởi tạo UI
-        updateUI();
+        // Khởi chạy
+        updateAuthUI();
     </script>
 </body>
 </html>
