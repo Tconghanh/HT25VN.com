@@ -3,171 +3,208 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Trị Khang Gia Phúc - Realtime Dashboard</title>
+    <title>Khang Gia Phúc - Hệ Thống Quản Trị Cao Cấp</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700&display=swap');
-        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f8fafc; overflow-x: hidden; }
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
         
-        /* Tối ưu Iframe */
-        .sheet-wrapper {
-            height: calc(100vh - 280px);
-            min-height: 500px;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-            border: 1px solid #e2e8f0;
+        :root {
+            --primary: #2563eb;
+            --primary-dark: #1e40af;
         }
 
-        /* Menu ngang cho Mobile */
+        body { 
+            font-family: 'Plus Jakarta Sans', sans-serif; 
+            background: #f1f5f9;
+            color: #0f172a;
+        }
+
+        /* Hiệu ứng kính mờ cho Header */
+        .glass-nav {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.7);
+        }
+
+        /* Khung chứa Sheet */
+        .workspace-card {
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 10px 40px -10px rgba(0,0,0,0.1);
+            border: 1px solid rgba(255,255,255,1);
+            height: calc(100vh - 260px);
+            min-height: 550px;
+            overflow: hidden;
+            position: relative;
+        }
+
+        /* Tab Menu */
         .nav-scroll {
             display: flex;
             overflow-x: auto;
-            white-space: nowrap;
-            -webkit-overflow-scrolling: touch;
             scrollbar-width: none;
+            gap: 8px;
         }
         .nav-scroll::-webkit-scrollbar { display: none; }
 
-        .nav-tab {
-            @apply px-5 py-2.5 font-semibold text-gray-500 transition-all duration-200 flex items-center gap-2 border-b-2 border-transparent;
+        .tab-item {
+            @apply px-6 py-3 rounded-xl font-bold text-sm transition-all duration-300 flex items-center gap-2 whitespace-nowrap;
+            color: #64748b;
         }
-        .nav-tab.active {
-            @apply text-blue-600 border-blue-600 bg-blue-50/50 rounded-t-lg;
+        .tab-item.active {
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 4px 12px rgba(37, 99, 235, 0.3);
         }
 
-        /* Nút Google Login */
-        .btn-google {
-            @apply flex items-center gap-2 bg-white border border-gray-300 px-4 py-2 rounded-lg text-sm font-semibold text-gray-700 shadow-sm hover:shadow-md transition-all active:scale-95;
+        /* Google Button Custom */
+        .google-auth-btn {
+            @apply flex items-center gap-3 px-5 py-2.5 rounded-full font-bold text-sm transition-all shadow-sm hover:shadow-lg active:scale-95 border;
+        }
+        .btn-login { background: white; border-color: #e2e8f0; color: #334155; }
+        .btn-logout { background: #fee2e2; border-color: #fecaca; color: #ef4444; }
+
+        /* Loading Animation */
+        #loader {
+            height: 3px;
+            width: 0;
+            background: var(--primary);
+            position: absolute;
+            top: 0;
+            z-index: 100;
+            transition: width 0.4s ease;
         }
 
         iframe { width: 100%; height: 100%; border: none; }
     </style>
 </head>
-<body class="text-slate-800">
+<body>
 
-    <!-- Header -->
-    <header class="bg-white border-b sticky top-0 z-50">
-        <div class="max-w-[1440px] mx-auto px-4 lg:px-6">
+    <!-- Loading Bar -->
+    <div id="loader"></div>
+
+    <!-- Header & Navigation -->
+    <header class="glass-nav sticky top-0 z-50">
+        <div class="max-w-[1500px] mx-auto px-4 lg:px-8">
             <div class="flex justify-between items-center h-20">
-                <!-- Logo & Info -->
-                <div class="flex items-center gap-3">
-                    <img src="https://www.khanggiaphuc.com/data/logo.jpg" alt="Logo" class="h-12 w-auto rounded border shadow-sm">
-                    <div class="leading-tight">
-                        <h1 class="text-lg font-bold text-slate-900 leading-none">KHANG GIA PHÚC</h1>
-                        <p class="text-[10px] sm:text-xs text-blue-600 font-medium mt-1">
-                            Hệ thống quản trị <span class="text-slate-400 font-normal underline decoration-slate-200">by tconghanh 0938608602</span>
+                <!-- Brand -->
+                <div class="flex items-center gap-4">
+                    <div class="relative group cursor-pointer">
+                        <div class="absolute -inset-1 bg-gradient-to-r from-blue-600 to-indigo-600 rounded-xl blur opacity-25 group-hover:opacity-50 transition duration-1000"></div>
+                        <img src="https://www.khanggiaphuc.com/data/logo.jpg" alt="Logo" class="relative h-14 w-auto rounded-xl border border-white shadow-sm">
+                    </div>
+                    <div>
+                        <h1 class="text-xl font-extrabold tracking-tight text-slate-900 leading-none">KHANG GIA PHÚC</h1>
+                        <p class="text-[11px] font-semibold text-blue-600 mt-1 uppercase tracking-widest">
+                            Hệ Thống Quản Trị <span class="text-slate-400 font-normal normal-case ml-1 tracking-normal">by tconghanh 0938608602</span>
                         </p>
                     </div>
                 </div>
 
-                <!-- Google Login Button -->
-                <a href="https://accounts.google.com/ServiceLogin" target="_blank" class="btn-google">
-                    <img src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" alt="G" class="w-4 h-4">
-                    <span class="hidden sm:inline">Đăng nhập Google</span>
-                    <span class="sm:hidden">Login</span>
-                </a>
+                <!-- Google Auth Button -->
+                <div id="auth-container">
+                    <button id="btn-google" onclick="toggleAuth()" class="google-auth-btn btn-login">
+                        <img id="auth-icon" src="https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg" class="w-5 h-5">
+                        <span id="auth-text">Đăng nhập Google</span>
+                    </button>
+                </div>
             </div>
 
-            <!-- Responsive Navigation -->
-            <div class="nav-scroll border-t">
-                <button onclick="changeTab(this, '0')" class="nav-tab active">
-                    <i class="fas fa-home text-sm"></i> Trang Chủ
-                </button>
-                <button onclick="changeTab(this, '620957187')" class="nav-tab">
-                    <i class="fas fa-shield-alt text-sm"></i> Bảo Hành
-                </button>
-                <button onclick="changeTab(this, '895747298')" class="nav-tab">
-                    <i class="fas fa-cubes text-sm"></i> Sản Phẩm
-                </button>
-                <button onclick="changeTab(this, '809858153')" class="nav-tab">
-                    <i class="fas fa-users text-sm"></i> Khách Hàng
-                </button>
+            <!-- Sub-Navigation -->
+            <div class="pb-3 overflow-hidden">
+                <div class="nav-scroll">
+                    <button onclick="changeTab(this, '0')" class="tab-item active">
+                        <i class="fas fa-chart-pie"></i> TRANG CHỦ
+                    </button>
+                    <button onclick="changeTab(this, '620957187')" class="tab-item">
+                        <i class="fas fa-shield-check"></i> BẢO HÀNH
+                    </button>
+                    <button onclick="changeTab(this, '895747298')" class="tab-item">
+                        <i class="fas fa-box-open"></i> SẢN PHẨM
+                    </button>
+                    <button onclick="changeTab(this, '809858153')" class="tab-item">
+                        <i class="fas fa-user-tie"></i> KHÁCH HÀNG
+                    </button>
+                </div>
             </div>
         </div>
     </header>
 
     <!-- Main Workspace -->
-    <main class="max-w-[1440px] mx-auto px-4 lg:px-6 py-6">
-        <div class="sheet-wrapper overflow-hidden" data-aos="fade-up">
-            <iframe id="data-frame" src="https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal&gid=0"></iframe>
+    <main class="max-w-[1500px] mx-auto px-4 lg:px-8 py-8">
+        <div class="workspace-card" data-aos="fade-up">
+            <div class="absolute top-0 left-0 w-full h-1 bg-slate-50"></div>
+            <iframe id="sheet-frame" src="https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal&gid=0"></iframe>
         </div>
         
-        <!-- Quick Note -->
-        <p class="mt-3 text-[11px] text-gray-400 italic">
-            * Lưu ý: Bạn cần đăng nhập đúng tài khoản có quyền "Editor" để chỉnh sửa dữ liệu trực tiếp.
-        </p>
+        <div class="mt-4 flex flex-wrap justify-between items-center text-[12px] text-slate-500 font-medium px-2">
+            <div class="flex items-center gap-4">
+                <span class="flex items-center gap-1"><i class="fas fa-circle text-green-500 text-[8px]"></i> KẾT NỐI REAL-TIME</span>
+                <span class="hidden md:inline">VERSION: 4.0.0 PREMIUM</span>
+            </div>
+            <p class="italic">Mẹo: Nhấn Ctrl + S trong bảng tính để lưu thay đổi nhanh hơn.</p>
+        </div>
     </main>
 
-    <!-- Professional Footer -->
-    <footer class="bg-slate-900 text-white mt-12">
-        <div class="max-w-[1440px] mx-auto px-6 py-12">
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-12 border-b border-slate-800 pb-12">
-                <!-- About -->
-                <div class="space-y-4">
-                    <h3 class="text-blue-500 font-bold tracking-widest text-sm uppercase">Về chúng tôi</h3>
-                    <img src="https://www.khanggiaphuc.com/data/logo.jpg" alt="Logo" class="h-10 rounded grayscale brightness-200">
-                    <p class="text-slate-400 text-sm leading-relaxed">
-                        Chuyên cung cấp các giải pháp quản trị dữ liệu thông minh, giúp tối ưu hóa quy trình vận hành doanh nghiệp dựa trên nền tảng Cloud tiên tiến.
+    <!-- Super Footer -->
+    <footer class="bg-slate-900 text-white pt-20 pb-10">
+        <div class="max-w-[1500px] mx-auto px-8">
+            <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 pb-16 border-b border-slate-800">
+                <!-- Logo Info -->
+                <div class="lg:col-span-5 space-y-6">
+                    <img src="https://www.khanggiaphuc.com/data/logo.jpg" alt="Logo" class="h-12 rounded-lg brightness-110 grayscale hover:grayscale-0 transition duration-500">
+                    <h2 class="text-2xl font-bold bg-clip-text text-transparent bg-gradient-to-r from-blue-400 to-indigo-400">KHANG GIA PHÚC</h2>
+                    <p class="text-slate-400 text-sm leading-relaxed max-w-md">
+                        Đơn vị tiên phong trong lĩnh vực cung cấp giải pháp chuyển đổi số doanh nghiệp, mang đến hiệu quả quản trị vượt trội và bền vững.
                     </p>
                 </div>
 
-                <!-- Contact Support -->
-                <div class="space-y-4">
-                    <h3 class="text-blue-500 font-bold tracking-widest text-sm uppercase">Thông Tin Hỗ Trợ</h3>
-                    <ul class="space-y-3">
-                        <li class="flex items-center gap-3 group">
-                            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition">
-                                <i class="fas fa-globe"></i>
+                <!-- Support Info -->
+                <div class="lg:col-span-4 space-y-6">
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-slate-500">Thông Tin Hỗ Trợ</h3>
+                    <div class="space-y-4">
+                        <a href="http://www.khanggiaphuc.com" target="_blank" class="flex items-center gap-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center group-hover:bg-blue-600 transition duration-300">
+                                <i class="fas fa-globe-asia"></i>
                             </div>
-                            <a href="https://www.khanggiaphuc.com" class="text-slate-300 text-sm hover:text-white transition">www.khanggiaphuc.com</a>
-                        </li>
-                        <li class="flex items-center gap-3 group">
-                            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition">
-                                <i class="fas fa-phone-alt"></i>
+                            <span class="text-slate-300 group-hover:text-white font-medium transition">www.khanggiaphuc.com</span>
+                        </a>
+                        <a href="tel:0844900099" class="flex items-center gap-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center group-hover:bg-green-600 transition duration-300">
+                                <i class="fas fa-phone-volume"></i>
                             </div>
-                            <a href="tel:0844900099" class="text-slate-300 text-sm hover:text-white transition">0844.900.099</a>
-                        </li>
-                        <li class="flex items-center gap-3 group">
-                            <div class="w-8 h-8 rounded-full bg-slate-800 flex items-center justify-center text-blue-400 group-hover:bg-blue-600 group-hover:text-white transition">
-                                <i class="fas fa-envelope"></i>
+                            <span class="text-slate-300 group-hover:text-white font-medium transition text-lg tracking-wider">0844.900.099</span>
+                        </a>
+                        <a href="mailto:khanggiaphuc.com@gmail.com" class="flex items-center gap-4 group">
+                            <div class="w-10 h-10 rounded-xl bg-slate-800 flex items-center justify-center group-hover:bg-indigo-600 transition duration-300">
+                                <i class="fas fa-envelope-open-text"></i>
                             </div>
-                            <a href="mailto:khanggiaphuc.com@gmail.com" class="text-slate-300 text-sm hover:text-white transition">khanggiaphuc.com@gmail.com</a>
-                        </li>
-                    </ul>
+                            <span class="text-slate-300 group-hover:text-white font-medium transition">khanggiaphuc.com@gmail.com</span>
+                        </a>
+                    </div>
                 </div>
 
-                <!-- System Info -->
-                <div class="space-y-4">
-                    <h3 class="text-blue-500 font-bold tracking-widest text-sm uppercase">Hệ Thống</h3>
-                    <div class="bg-slate-800/50 p-4 rounded-xl border border-slate-700">
-                        <div class="flex justify-between text-xs mb-2">
-                            <span class="text-slate-400 font-medium">Developer:</span>
-                            <span class="text-blue-400">tconghanh</span>
-                        </div>
-                        <div class="flex justify-between text-xs mb-2">
-                            <span class="text-slate-400 font-medium">Version:</span>
-                            <span class="text-slate-300">3.0.1 (Stable)</span>
-                        </div>
-                        <div class="flex justify-between text-xs">
-                            <span class="text-slate-400 font-medium">Uptime:</span>
-                            <span class="text-green-400 font-bold">99.9%</span>
-                        </div>
+                <!-- Legal/Social -->
+                <div class="lg:col-span-3 space-y-6">
+                    <h3 class="text-xs font-black uppercase tracking-[0.2em] text-slate-500">Kết nối</h3>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition duration-300 text-xl"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-12 h-12 rounded-2xl bg-slate-800 flex items-center justify-center hover:bg-red-600 transition duration-300 text-xl"><i class="fab fa-youtube"></i></a>
+                    </div>
+                    <div class="pt-4">
+                        <p class="text-[10px] font-bold text-slate-600 uppercase mb-2 italic underline underline-offset-4">Hệ thống bảo mật bởi Google Cloud</p>
                     </div>
                 </div>
             </div>
 
-            <!-- Bottom Footer -->
-            <div class="pt-8 flex flex-col md:flex-row justify-between items-center gap-4">
-                <p class="text-slate-500 text-[11px] uppercase tracking-wider">
-                    © 2024 KHANG GIA PHÚC - ALL RIGHTS RESERVED
-                </p>
-                <div class="flex gap-6 text-slate-500 text-lg">
-                    <a href="#" class="hover:text-blue-500"><i class="fab fa-facebook"></i></a>
-                    <a href="#" class="hover:text-red-500"><i class="fab fa-youtube"></i></a>
-                    <a href="#" class="hover:text-blue-400"><i class="fab fa-linkedin"></i></a>
+            <!-- Copy -->
+            <div class="pt-10 flex flex-col md:flex-row justify-between items-center gap-6 text-slate-500 text-xs font-semibold tracking-widest">
+                <p>© 2024 KHANG GIA PHÚC. DESIGN BY TCONGHANH.</p>
+                <div class="flex gap-8 uppercase">
+                    <a href="#" class="hover:text-white transition">Privacy Policy</a>
+                    <a href="#" class="hover:text-white transition">Terms of Service</a>
                 </div>
             </div>
         </div>
@@ -175,31 +212,72 @@
 
     <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // Khởi tạo hiệu ứng cuộn
-        AOS.init({ duration: 600, once: true });
+        AOS.init({ duration: 800, once: true });
 
-        const iframe = document.getElementById('data-frame');
+        const iframe = document.getElementById('sheet-frame');
+        const loader = document.getElementById('loader');
+        const btnAuth = document.getElementById('btn-google');
+        const authText = document.getElementById('auth-text');
+        const authIcon = document.getElementById('auth-icon');
         const baseUrl = "https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal";
 
+        // Kiểm tra trạng thái đăng nhập từ LocalStorage
+        let isLoggedIn = localStorage.getItem('isLoggedIn') === 'true';
+        updateAuthUI();
+
+        function toggleAuth() {
+            if (!isLoggedIn) {
+                // Giả lập Login: Mở trang login Google
+                window.open('https://accounts.google.com/ServiceLogin', '_blank');
+                isLoggedIn = true;
+                localStorage.setItem('isLoggedIn', 'true');
+            } else {
+                // Logout: Quay lại mặc định
+                if(confirm("Bạn có chắc chắn muốn đăng xuất?")) {
+                    isLoggedIn = false;
+                    localStorage.setItem('isLoggedIn', 'false');
+                }
+            }
+            updateAuthUI();
+        }
+
+        function updateAuthUI() {
+            if (isLoggedIn) {
+                btnAuth.classList.remove('btn-login');
+                btnAuth.classList.add('btn-logout');
+                authText.innerText = "Đăng xuất tài khoản";
+                authIcon.src = "https://cdn-icons-png.flaticon.com/512/4034/4034229.png"; // Icon logout
+            } else {
+                btnAuth.classList.remove('btn-logout');
+                btnAuth.classList.add('btn-login');
+                authText.innerText = "Đăng nhập Google";
+                authIcon.src = "https://upload.wikimedia.org/wikipedia/commons/5/53/Google_%22G%22_Logo.svg";
+            }
+        }
+
         function changeTab(btn, gid) {
-            // Xóa active ở tất cả các nút
-            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
-            // Thêm active cho nút hiện tại
+            // Thanh loading chạy
+            loader.style.width = '30%';
+            
+            // UI Button
+            document.querySelectorAll('.tab-item').forEach(t => t.classList.remove('active'));
             btn.classList.add('active');
 
-            // Hiệu ứng mờ nhẹ khi chuyển tab
-            iframe.style.opacity = '0.3';
-            
-            // Đổi GID
+            // Đổi Sheet
+            iframe.style.opacity = '0';
             iframe.src = `${baseUrl}&gid=${gid}`;
 
-            // Hiện lại sau 500ms
-            setTimeout(() => {
-                iframe.style.opacity = '1';
-                iframe.style.transition = 'all 0.5s';
-            }, 300);
+            // Sau khi iframe load
+            iframe.onload = () => {
+                loader.style.width = '100%';
+                setTimeout(() => {
+                    loader.style.width = '0';
+                    iframe.style.opacity = '1';
+                    iframe.style.transition = 'opacity 0.6s ease';
+                }, 200);
+            };
 
-            // Cuộn nút đang chọn vào giữa tầm nhìn (cho mobile)
+            // Mobile scroll menu
             btn.scrollIntoView({ behavior: 'smooth', block: 'nearest', inline: 'center' });
         }
     </script>
