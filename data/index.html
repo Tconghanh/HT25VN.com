@@ -3,117 +3,214 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Quản Lý Khang Gia Phúc - Hệ Thống Realtime</title>
+    <title>Hệ Thống Quản Trị - Khang Gia Phúc</title>
     <script src="https://cdn.tailwindcss.com"></script>
     <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/js/all.min.js"></script>
     <style>
-        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap');
-        body { font-family: 'Inter', sans-serif; background-color: #f8fafc; }
-        .sheet-container {
-            height: 600px;
-            width: 100%;
-            border-radius: 12px;
+        @import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;600;700&display=swap');
+        body { font-family: 'Plus Jakarta Sans', sans-serif; background-color: #f3f4f6; }
+        
+        .sheet-wrapper {
+            height: calc(100vh - 350px);
+            min-height: 600px;
+            background: white;
+            border-radius: 16px;
+            box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+            border: 1px solid rgba(226, 232, 240, 0.8);
             overflow: hidden;
-            box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
-            border: 1px solid #e2e8f0;
         }
-        .tab-btn.active {
-            background-color: #2563eb;
-            color: white;
-            border-bottom: 4px solid #1e40af;
+
+        .nav-tab {
+            @apply px-6 py-3 font-semibold text-gray-500 border-b-2 border-transparent transition-all duration-300 flex items-center gap-2;
         }
+        .nav-tab.active {
+            @apply text-blue-600 border-blue-600 bg-blue-50/50;
+        }
+        
+        .glass-header {
+            background: rgba(255, 255, 255, 0.9);
+            backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(226, 232, 240, 0.8);
+        }
+
         iframe { width: 100%; height: 100%; border: none; }
+        
+        /* Hiệu ứng loading */
+        .loader-line {
+            height: 3px;
+            width: 100%;
+            position: relative;
+            overflow: hidden;
+            background-color: #ddd;
+        }
+        .loader-line:before {
+            content: "";
+            position: absolute;
+            left: -50%;
+            height: 3px;
+            width: 40%;
+            background-color: #2563eb;
+            animation: lineAnim 1s linear infinite;
+        }
+        @keyframes lineAnim {
+            0% { left: -40%; }
+            50% { left: 20%; width: 80%; }
+            100% { left: 100%; width: 100%; }
+        }
     </style>
 </head>
-<body>
+<body class="text-slate-800">
 
-    <!-- Header -->
-    <header class="bg-white shadow-sm sticky top-0 z-50">
-        <div class="max-w-7xl mx-auto px-4 py-4 flex justify-between items-center">
-            <div class="flex items-center gap-3">
-                <div class="bg-blue-600 p-2 rounded-lg text-white">
-                    <i class="fas fa-database fa-lg"></i>
+    <!-- Header Section -->
+    <header class="glass-header sticky top-0 z-50">
+        <div class="max-w-[1400px] mx-auto px-6 py-3 flex flex-wrap justify-between items-center">
+            <div class="flex items-center gap-4">
+                <img src="https://www.khanggiaphuc.com/data/logo.jpg" alt="Logo" class="h-14 w-auto rounded-lg shadow-sm border border-gray-100">
+                <div>
+                    <h1 class="text-xl font-extrabold text-slate-900 tracking-tight">KHANG GIA PHÚC</h1>
+                    <p class="text-xs text-blue-600 font-medium uppercase tracking-wider">
+                        Hệ thống quản trị <span class="text-gray-400 mx-1">|</span> 
+                        <span class="text-slate-500">by tconghanh 0938608602</span>
+                    </p>
                 </div>
-                <h1 class="text-xl font-bold text-gray-800 tracking-tight">KHANG GIA PHÚC <span class="text-blue-600 text-sm font-normal">| Hệ Thống Quản Trị</span></h1>
             </div>
-            <div class="hidden md:flex items-center text-sm text-gray-500">
-                <span class="mr-4"><i class="fas fa-circle text-green-500 text-[10px] mr-1"></i> Trực tuyến (Cập nhật Realtime)</span>
+
+            <!-- Desktop Menu -->
+            <nav class="hidden lg:flex items-center bg-gray-100/50 p-1 rounded-xl">
+                <button onclick="changeTab(this, '0')" class="nav-tab active rounded-lg">
+                    <i class="fas fa-home"></i> Trang Chủ
+                </button>
+                <button onclick="changeTab(this, 'GID_BAO_HANH')" class="nav-tab rounded-lg">
+                    <i class="fas fa-shield-alt"></i> Bảo Hành
+                </button>
+                <button onclick="changeTab(this, 'GID_SAN_PHAM')" class="nav-tab rounded-lg">
+                    <i class="fas fa-cubes"></i> Sản Phẩm
+                </button>
+                <button onclick="changeTab(this, 'GID_DU_AN')" class="nav-tab rounded-lg">
+                    <i class="fas fa-users"></i> Khách Hàng
+                </button>
+            </nav>
+
+            <div class="flex items-center gap-3">
+                <div class="text-right hidden sm:block">
+                    <p class="text-[10px] text-gray-400 uppercase font-bold">Trạng thái</p>
+                    <p class="text-xs text-green-500 font-bold flex items-center justify-end gap-1">
+                        <span class="w-2 h-2 bg-green-500 rounded-full animate-pulse"></span> Đang hoạt động
+                    </p>
+                </div>
             </div>
         </div>
+        <div id="loading-bar" class="loader-line hidden"></div>
     </header>
 
     <!-- Main Content -->
-    <main class="max-w-7xl mx-auto px-4 py-10">
-        
-        <!-- Navigation Tabs -->
-        <div class="flex flex-wrap gap-2 mb-6" data-aos="fade-down">
-            <button onclick="showSheet('TrangChu', '0')" class="tab-btn active px-6 py-3 rounded-t-lg font-semibold transition bg-white hover:bg-gray-100">
-                <i class="fas fa-home mr-2"></i>Trang Chủ
-            </button>
-            <button onclick="showSheet('SanPham', '123456789')" class="tab-btn px-6 py-3 rounded-t-lg font-semibold transition bg-white hover:bg-gray-100">
-                <i class="fas fa-box mr-2"></i>Sản Phẩm
-            </button>
-            <button onclick="showSheet('DuAn', '987654321')" class="tab-btn px-6 py-3 rounded-t-lg font-semibold transition bg-white hover:bg-gray-100">
-                <i class="fas fa-project-diagram mr-2"></i>Dự Án
-            </button>
-            <button onclick="showSheet('BaoHanh', '1122334455')" class="tab-btn px-6 py-3 rounded-t-lg font-semibold transition bg-white hover:bg-gray-100">
-                <i class="fas fa-tools mr-2"></i>Bảo Hành
-            </button>
+    <main class="max-w-[1400px] mx-auto px-6 py-8">
+        <!-- Dashboard Welcome -->
+        <div class="mb-8 flex justify-between items-end" data-aos="fade-up">
+            <div>
+                <h2 class="text-2xl font-bold text-slate-800">Bảng Điều Khiển Real-time</h2>
+                <p class="text-slate-500">Dữ liệu được đồng bộ trực tiếp từ hệ thống Google Cloud.</p>
+            </div>
+            <div class="flex gap-2">
+                <button onclick="refreshSheet()" class="p-2.5 bg-white border border-gray-200 rounded-lg hover:bg-gray-50 transition shadow-sm text-gray-600" title="Tải lại dữ liệu">
+                    <i class="fas fa-sync-alt"></i>
+                </button>
+            </div>
         </div>
 
-        <!-- Sheet Display -->
-        <div class="sheet-container bg-white" data-aos="zoom-in" id="sheet-wrapper">
-            <!-- Tham số rm=minimal giúp ẩn bớt thanh công cụ rườm rà của Google -->
-            <iframe id="google-sheet-iframe" src="https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal&gid=0"></iframe>
-        </div>
-
-        <!-- Hướng dẫn nhanh -->
-        <div class="mt-6 flex items-center p-4 bg-blue-50 border-l-4 border-blue-500 text-blue-700 rounded shadow-sm" data-aos="fade-up">
-            <i class="fas fa-info-circle mr-3"></i>
-            <p class="text-sm">Bạn có thể nhập liệu trực tiếp vào các ô trên. Dữ liệu sẽ tự động lưu lại vào Google Sheet gốc.</p>
+        <!-- Sheet Container -->
+        <div class="sheet-wrapper" data-aos="zoom-in" data-aos-delay="100">
+            <iframe id="main-frame" src="https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal&gid=0"></iframe>
         </div>
     </main>
 
-    <!-- Footer -->
-    <footer class="bg-slate-900 text-white pt-16 pb-8">
-        <div class="max-w-7xl mx-auto px-4 grid md:grid-cols-3 gap-12 border-b border-gray-700 pb-12">
-            <div>
-                <h3 class="text-2xl font-bold mb-6 text-blue-400">KHANG GIA PHÚC</h3>
-                <p class="text-gray-400 leading-relaxed italic">"Giải pháp công nghệ chuyên nghiệp, đồng hành cùng sự phát triển bền vững của doanh nghiệp."</p>
-            </div>
-            <div>
-                <h4 class="text-lg font-semibold mb-6 uppercase tracking-wider text-gray-200">THÔNG TIN HỖ TRỢ :</h4>
-                <ul class="space-y-4 text-gray-400">
-                    <li class="flex items-center">
-                        <i class="fas fa-globe w-8 text-blue-500 text-lg"></i> 
-                        <span>WEBSITE : <a href="http://www.khanggiaphuc.com" target="_blank" class="hover:text-blue-400 transition">www.khanggiaphuc.com</a></span>
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fas fa-phone-alt w-8 text-blue-500 text-lg"></i> 
-                        <span>HOTLINE : <a href="tel:0844900099" class="hover:text-blue-400 transition">0844.900.099</a></span>
-                    </li>
-                    <li class="flex items-center">
-                        <i class="fas fa-envelope w-8 text-blue-500 text-lg"></i> 
-                        <span>EMAIL : <a href="mailto:khanggiaphuc.com@gmail.com" class="hover:text-blue-400 transition">khanggiaphuc.com@gmail.com</a></span>
-                    </li>
-                </ul>
-            </div>
-            <div>
-                <h4 class="text-lg font-semibold mb-6 uppercase tracking-wider text-gray-200">TRẠNG THÁI HỆ THỐNG</h4>
-                <div class="bg-slate-800 p-4 rounded-lg">
-                    <div class="flex justify-between mb-2">
-                        <span class="text-sm text-gray-400">Kết nối Sheet:</span>
-                        <span class="text-sm text-green-400 font-bold">Ổn định</span>
+    <!-- Footer Section -->
+    <footer class="bg-[#0f172a] text-white pt-16 pb-8 mt-12">
+        <div class="max-w-[1400px] mx-auto px-6">
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+                <!-- Col 1 -->
+                <div class="space-y-6">
+                    <img src="https://www.khanggiaphuc.com/data/logo.jpg" alt="Logo Footer" class="h-16 rounded-lg brightness-90">
+                    <p class="text-gray-400 text-sm leading-relaxed">
+                        Khang Gia Phúc tự hào là đơn vị cung cấp giải pháp chuyển đổi số và quản trị dữ liệu chuyên nghiệp cho doanh nghiệp hiện đại.
+                    </p>
+                    <div class="flex gap-4">
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-blue-600 transition duration-300"><i class="fab fa-facebook-f"></i></a>
+                        <a href="#" class="w-10 h-10 rounded-full bg-slate-800 flex items-center justify-center hover:bg-red-600 transition duration-300"><i class="fab fa-youtube"></i></a>
                     </div>
-                    <div class="w-full bg-gray-700 h-1.5 rounded-full">
-                        <div class="bg-blue-500 h-1.5 rounded-full" style="width: 100%"></div>
+                </div>
+
+                <!-- Col 2 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg border-l-4 border-blue-500 pl-3">THÔNG TIN HỖ TRỢ</h4>
+                    <ul class="space-y-4 text-sm">
+                        <li class="flex items-start gap-3 text-gray-400 hover:text-white transition">
+                            <i class="fas fa-globe text-blue-500 mt-1"></i>
+                            <div>
+                                <p class="text-xs font-bold text-gray-500 uppercase">Website</p>
+                                <a href="http://www.khanggiaphuc.com" target="_blank">www.khanggiaphuc.com</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-400 hover:text-white transition">
+                            <i class="fas fa-phone-alt text-blue-500 mt-1"></i>
+                            <div>
+                                <p class="text-xs font-bold text-gray-500 uppercase">Hotline 24/7</p>
+                                <a href="tel:0844900099">0844.900.099</a>
+                            </div>
+                        </li>
+                        <li class="flex items-start gap-3 text-gray-400 hover:text-white transition">
+                            <i class="fas fa-envelope text-blue-500 mt-1"></i>
+                            <div>
+                                <p class="text-xs font-bold text-gray-500 uppercase">Email liên hệ</p>
+                                <a href="mailto:khanggiaphuc.com@gmail.com">khanggiaphuc.com@gmail.com</a>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+
+                <!-- Col 3 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg border-l-4 border-blue-500 pl-3">TIỆN ÍCH</h4>
+                    <ul class="space-y-3 text-sm text-gray-400">
+                        <li><a href="#" class="hover:text-blue-400">Hướng dẫn sử dụng</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Quy trình bảo hành</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Báo cáo dự án</a></li>
+                        <li><a href="#" class="hover:text-blue-400">Chính sách bảo mật</a></li>
+                    </ul>
+                </div>
+
+                <!-- Col 4 -->
+                <div>
+                    <h4 class="text-white font-bold mb-6 text-lg border-l-4 border-blue-500 pl-3">ỨNG DỤNG DI ĐỘNG</h4>
+                    <p class="text-sm text-gray-400 mb-4">Quản lý mọi lúc mọi nơi trên thiết bị di động của bạn.</p>
+                    <div class="flex flex-col gap-2">
+                        <div class="bg-slate-800 p-3 rounded-xl flex items-center gap-3 border border-slate-700 cursor-not-allowed opacity-60">
+                            <i class="fab fa-apple text-2xl"></i>
+                            <div>
+                                <p class="text-[10px] uppercase">Download on</p>
+                                <p class="text-xs font-bold">App Store</p>
+                            </div>
+                        </div>
+                        <div class="bg-slate-800 p-3 rounded-xl flex items-center gap-3 border border-slate-700 cursor-not-allowed opacity-60">
+                            <i class="fab fa-google-play text-2xl"></i>
+                            <div>
+                                <p class="text-[10px] uppercase">Get it on</p>
+                                <p class="text-xs font-bold">Google Play</p>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-        <div class="text-center mt-8 text-gray-500 text-xs tracking-widest uppercase">
-            &copy; 2024 Khang Gia Phúc - Powered by Google Cloud
+
+            <!-- Bottom Footer -->
+            <div class="pt-8 border-t border-slate-800 flex flex-col md:flex-row justify-between items-center gap-4 text-gray-500 text-xs">
+                <p>© 2024 KHANG GIA PHÚC. Tất cả quyền được bảo lưu.</p>
+                <div class="flex gap-6">
+                    <span>Hệ thống thiết kế bởi <b class="text-gray-300">tconghanh</b></span>
+                    <span>Phiên bản 2.5.0</span>
+                </div>
+            </div>
         </div>
     </footer>
 
@@ -121,28 +218,35 @@
     <script>
         AOS.init({ duration: 800, once: true });
 
-        const base_url = "https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal";
+        const iframe = document.getElementById('main-frame');
+        const loadingBar = document.getElementById('loading-bar');
+        const baseUrl = "https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/edit?rm=minimal";
 
-        function showSheet(tabName, gid) {
-            // Thay đổi URL iframe
-            const iframe = document.getElementById('google-sheet-iframe');
-            iframe.src = `${base_url}&gid=${gid}`;
+        function changeTab(btn, gid) {
+            // Hiệu ứng loading
+            loadingBar.classList.remove('hidden');
+            
+            // Cập nhật giao diện nút
+            document.querySelectorAll('.nav-tab').forEach(t => t.classList.remove('active'));
+            btn.classList.add('active');
 
-            // Cập nhật trạng thái nút
-            const buttons = document.querySelectorAll('.tab-btn');
-            buttons.forEach(btn => {
-                btn.classList.remove('active');
-                if (btn.innerText.includes(tabName)) {
-                    btn.classList.add('active');
-                }
-            });
+            // Cập nhật iframe
+            iframe.src = `${baseUrl}&gid=${gid}`;
 
-            // Thêm hiệu ứng load nhẹ
-            const wrapper = document.getElementById('sheet-wrapper');
-            wrapper.style.opacity = '0.5';
+            // Ẩn thanh loading sau khi iframe tải xong (ước lượng)
             setTimeout(() => {
-                wrapper.style.opacity = '1';
-            }, 300);
+                loadingBar.classList.add('hidden');
+            }, 1000);
+        }
+
+        function refreshSheet() {
+            const currentSrc = iframe.src;
+            loadingBar.classList.remove('hidden');
+            iframe.src = '';
+            setTimeout(() => {
+                iframe.src = currentSrc;
+                loadingBar.classList.add('hidden');
+            }, 500);
         }
     </script>
 </body>
