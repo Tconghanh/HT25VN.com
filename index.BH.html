@@ -45,6 +45,20 @@
         .slide img { width: 100%; height: 100%; object-fit: cover; }
         .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(0,0,0,0.3); border: none; width: 45px; height: 45px; border-radius: 50%; cursor: pointer; z-index: 10; color: #fff; }
 
+        /* WARRANTY BOX - MẪU CHUẨN */
+        .warranty-section { padding: 60px 20px; background: #fff; text-align: center; }
+        .warranty-header h2 { font-size: 1.8rem; font-weight: 800; color: #1a1a1a; margin-bottom: 5px; text-transform: uppercase; }
+        .warranty-subtitle { color: #ff3300; font-weight: 700; font-style: italic; font-size: 0.9rem; margin-bottom: 30px; letter-spacing: 1px; }
+        .warranty-desc { max-width: 900px; margin: 0 auto 30px; color: #444; font-size: 0.95rem; line-height: 1.6; }
+        .warranty-card { max-width: 800px; margin: 0 auto; background: #fff; border: 1px solid #eee; border-radius: 8px; padding: 40px; box-shadow: 0 10px 30px rgba(0,0,0,0.05); }
+        .warranty-form { display: grid; grid-template-columns: 1fr; gap: 20px; text-align: left; }
+        .form-group label { display: block; font-weight: 700; margin-bottom: 8px; font-size: 0.9rem; color: #333; }
+        .form-group input { width: 100%; padding: 12px 15px; border: 1px solid #ddd; border-radius: 4px; outline: none; background: #fff; font-size: 1rem; }
+        .warranty-actions { display: grid; grid-template-columns: 1fr 1fr; gap: 15px; margin-top: 25px; }
+        .btn-lookup { background: var(--btn-orange); color: #fff; border: none; padding: 14px; border-radius: 6px; font-weight: 700; cursor: pointer; transition: 0.3s; font-size: 0.9rem; }
+        .btn-history { background: #fff; color: #333; border: 1px solid #ddd; padding: 14px; border-radius: 6px; font-weight: 700; cursor: pointer; font-size: 0.9rem; }
+        #warranty-result { margin-top: 30px; text-align: left; display: none; border-top: 1px dashed #ccc; padding-top: 25px; }
+
         /* PRODUCT GRID */
         section { padding: 60px 20px; max-width: 1300px; margin: auto; }
         .section-title h2 { font-size: 2rem; color: var(--primary); text-align: center; text-transform: uppercase; font-style: italic; }
@@ -139,6 +153,33 @@
             <div class="slide"><img src="data/SL1.jpg"></div>
             <div class="slide"><img src="data/SL2.jpg"></div>
             <div class="slide"><img src="data/SL3.jpg"></div>
+        </div>
+    </div>
+
+    <!-- MODULE TRA CỨU BẢO HÀNH (ĐÃ FIX CỘT C & F) -->
+    <section id="warranty" class="warranty-section">
+        <div class="warranty-header">
+            <h2>TRA CỨU BẢO HÀNH & LỊCH SỬ DỊCH VỤ</h2>
+            <div class="warranty-subtitle">——— NHANH CHÓNG – TIỆN LỢI ———</div>
+        </div>
+        <p class="warranty-desc">Nhập thông tin biển số hoặc số điện thoại để tra cứu bảo hành sản phẩm tại HT25 VN.</p>
+        
+        <div class="warranty-card">
+            <div class="warranty-form">
+                <div class="form-group">
+                    <label>Biển số xe</label>
+                    <input type="text" id="w-plate" placeholder="Ví dụ: 51H14214">
+                </div>
+                <div class="form-group">
+                    <label>Số điện thoại</label>
+                    <input type="text" id="w-phone" placeholder="Ví dụ: 0907xxxxxx">
+                </div>
+            </div>
+            <div class="warranty-actions">
+                <button class="btn-lookup" onclick="checkWarranty()">Tra cứu bảo hành</button>
+                <button class="btn-history" onclick="checkWarranty()">Lịch sử dịch vụ</button>
+            </div>
+            <div id="warranty-result"></div>
         </div>
     </section>
 
