@@ -125,13 +125,18 @@
         .activity-card:hover .activity-icon { background: rgba(255,255,255,0.2); color: #fff; }
         .activity-card h4 { font-size: 1.2rem; margin-bottom: 15px; text-transform: uppercase; }
 
-        /* --- WARRANTY POLICY --- */
+        /* --- WARRANTY POLICY (FULL CONTENT) --- */
         #warranty-policy { background: #f8fafc; max-width: 100%; }
-        .policy-container { max-width: 1000px; margin: auto; background: #fff; padding: 50px; border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.05); }
+        .policy-container { max-width: 1100px; margin: auto; background: #fff; padding: 50px; border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.05); border-top: 6px solid var(--primary); }
+        .policy-container p { margin-bottom: 18px; font-size: 1.05rem; line-height: 1.8; color: #444; }
+        .policy-container strong { color: #1a1a1a; }
+        
         .policy-warning { 
             background: #fff5f5; border-left: 6px solid var(--price-red); 
-            padding: 30px; border-radius: 15px; margin: 30px 0; 
+            padding: 35px; border-radius: 15px; margin: 35px 0; 
         }
+        .policy-warning h4 { color: var(--price-red); font-size: 1.25rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
+        .policy-warning p { font-size: 1rem; margin-bottom: 12px; font-weight: 500; }
 
         /* --- MARQUEE --- */
         #projects { background: var(--dark-bg); padding: 80px 0; overflow: hidden; }
@@ -145,45 +150,31 @@
         .footer-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; text-align: center; }
         .footer-col { display: flex; flex-direction: column; align-items: center; width: 100%; }
         
-        /* Chống tràn Logo chân trang */
         .footer-logo-wrap { max-width: 220px; width: 100%; margin-bottom: 25px; }
         .footer-logo-wrap img { width: 100%; height: auto; object-fit: contain; }
 
         .footer-col h4 { color: #fff; margin-bottom: 30px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; position: relative; }
         .footer-col h4::after { content: ''; width: 40px; height: 3px; background: var(--primary); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); }
         .footer-col ul { list-style: none; padding: 0; }
-        .footer-col ul li { margin-bottom: 15px; font-size: 0.95rem; transition: 0.3s; }
-        .footer-col ul li:hover { color: #fff; transform: translateX(5px); }
+        .footer-col ul li { margin-bottom: 15px; font-size: 0.95rem; }
         .footer-social { display: flex; gap: 20px; font-size: 1.8rem; margin-top: 15px; }
         .footer-social a { color: #94a3b8; transition: 0.3s; }
         .footer-social a:hover { color: var(--primary-light); transform: translateY(-5px); }
 
-        /* --- MODAL --- */
-        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(10px); }
-        .modal-content { background: #fff; width: 100%; max-width: 1000px; border-radius: 30px; display: grid; grid-template-columns: 45% 55%; position: relative; overflow: hidden; max-height: 90vh; animation: zoomIn 0.3s ease; }
-        @keyframes zoomIn { from { transform: scale(0.9); opacity: 0; } to { transform: scale(1); opacity: 1; } }
-        .modal-left { padding: 50px; border-right: 1px solid #f1f5f9; display: flex; align-items: center; justify-content: center; }
-        .modal-right { padding: 50px; overflow-y: auto; display: flex; flex-direction: column; }
-        .close-btn { position: absolute; top: 25px; right: 30px; font-size: 40px; color: #cbd5e1; cursor: pointer; transition: 0.3s; }
-        .close-btn:hover { color: var(--price-red); }
-
-        /* --- MOBILE RESPONSIVE --- */
+        /* --- MOBILE --- */
         @media (max-width: 768px) {
             .slider-container { height: 280px; }
             .intro-container { grid-template-columns: 1fr; gap: 40px; }
-            .section-title h2 { font-size: 1.8rem; }
-            .modal-content { grid-template-columns: 1fr; }
-            .modal-left { padding: 30px; }
+            .policy-container { padding: 30px; }
             .menu-toggle { display: block; }
             nav ul { 
                 position: fixed; top: 0; right: -100%; width: 85%; height: 100vh; 
                 background: #fff; flex-direction: column; padding: 100px 40px; 
-                transition: 0.5s cubic-bezier(0.7, 0, 0.3, 1); z-index: 1002; 
-                box-shadow: -20px 0 40px rgba(0,0,0,0.1); 
+                transition: 0.5s; z-index: 1002; box-shadow: -20px 0 40px rgba(0,0,0,0.1); 
             }
             nav ul.active { right: 0; }
             nav ul li { width: 100%; }
-            nav ul li a { font-size: 1rem; padding: 15px 0; border-bottom: 1px solid #f1f5f9; display: block; }
+            nav ul li a { display: block; border-bottom: 1px solid #f1f5f9; padding: 15px 0; font-size: 1rem; }
         }
 
         #loader { position: fixed; inset: 0; background: #fff; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -194,7 +185,7 @@
 <body>
 
     <!-- LOADER -->
-    <div id="loader"><div class="spinner"></div><p style="margin-top:20px; font-weight:700; color:var(--primary); letter-spacing: 2px;">HT25 VIỆT NAM</p></div>
+    <div id="loader"><div class="spinner"></div><p style="margin-top:20px; font-weight:700; color:var(--primary);">HT25 VIỆT NAM</p></div>
 
     <!-- HEADER -->
     <header>
@@ -234,13 +225,13 @@
         <div class="intro-container">
             <div class="intro-img-box"><img src="data/GioiThieu.jpg" alt="Về HT25"></div>
             <div class="intro-text">
-                <div class="section-title" style="text-align:left"><h2 style="font-size:1.8rem">Câu chuyện thương hiệu</h2><div class="underline" style="margin:10px 0"></div></div>
+                <div class="section-title" style="text-align:left"><h2 style="font-size:1.8rem">VỀ CHÚNG TÔI</h2><div class="underline" style="margin:10px 0"></div></div>
                 <div id="intro-text-content"></div>
                 <div style="display:grid; grid-template-columns:1fr 1fr; gap:15px; margin-top:30px">
-                    <div style="font-weight:700; color:var(--primary)"><i class="fa-solid fa-circle-check"></i> Đổi mới công nghệ</div>
-                    <div style="font-weight:700; color:var(--primary)"><i class="fa-solid fa-circle-check"></i> An toàn tuyệt đối</div>
-                    <div style="font-weight:700; color:var(--primary)"><i class="fa-solid fa-circle-check"></i> Chất lượng bền bỉ</div>
-                    <div style="font-weight:700; color:var(--primary)"><i class="fa-solid fa-circle-check"></i> Tối ưu trải nghiệm</div>
+                    <div style="font-weight:700; color:var(--primary)"><i class="fa-solid fa-circle-check"></i> Sản phẩm chính hãng</div>
+                    <div style="font-weight:700; color:var(--primary)"><i class="fa-solid fa-circle-check"></i> Kỹ thuật chuyên sâu</div>
+                    <div style="font-weight:700; color:var(--primary)"><i class="fa-solid fa-circle-check"></i> Bảo hành dài hạn</div>
+                    <div style="font-weight:700; color:var(--primary)"><i class="fa-solid fa-circle-check"></i> Phục vụ tận tâm</div>
                 </div>
             </div>
         </div>
@@ -252,20 +243,22 @@
         <div class="activity-grid" id="activity-list"></div>
     </section>
 
-    <!-- CHÍNH SÁCH BẢO HÀNH -->
+    <!-- CHÍNH SÁCH BẢO HÀNH (FULL) -->
     <section id="warranty-policy">
         <div class="policy-container">
             <div class="section-title"><h2>Chính sách bảo hành</h2><div class="underline"></div></div>
             <p><strong>Kính gửi quý khách hàng,</strong></p>
-            <p>Sản phẩm của <span style="color:var(--primary); font-weight:800">HT25</span> được bảo hành chính hãng <span style="color:var(--btn-orange); font-weight:800">15 tháng</span> (1 đổi 1 - lỗi do nhà sản xuất, lỗi chiếc nào đổi chiếc đó). Các lỗi được bảo hành: Xì dầu, chết phuộc.</p>
-            <p>Trong trường hợp cần hỗ trợ, vui lòng liên hệ Zalo: <a href="https://zalo.me/0907590123" style="color:var(--btn-orange); font-weight:700; text-decoration:none">0907.590.123</a> - <a href="https://zalo.me/0879907979" style="color:var(--btn-orange); font-weight:700; text-decoration:none">0879.90.7979</a></p>
+            <p>Sản phẩm của <span style="color:var(--primary); font-weight:800">HT25</span> được bảo hành chính hãng <span style="color:var(--btn-orange); font-weight:800">15 tháng</span> (1 đổi 1 - lỗi do nhà sản xuất, lỗi chiếc nào đổi chiếc đó).</p>
+            <p><strong>Các lỗi được bảo hành:</strong> Xì dầu, chết phuộc. Trong trường hợp cần hỗ trợ về bảo hành hoặc kỹ thuật, xin quý khách vui lòng liên hệ trực tiếp với chúng tôi qua hotline/Zalo: <a href="https://zalo.me/0907590123" style="color:var(--btn-orange); font-weight:700; text-decoration:none">0907.590.123</a> - <a href="https://zalo.me/0879907979" style="color:var(--btn-orange); font-weight:700; text-decoration:none">0879.90.7979</a> để được phục vụ tốt nhất.</p>
 
             <div class="policy-warning">
-                <h4 style="color:var(--price-red); margin-bottom:15px"><i class="fa-solid fa-circle-exclamation"></i> QUY ĐỊNH QUAN TRỌNG:</h4>
-                <p>Quý khách vui lòng đăng ký thông tin sản phẩm trên hệ thống để đảm bảo quyền lợi. Chúng tôi từ chối bảo hành với các sản phẩm không có dữ liệu.</p>
-                <p><strong>Thời hạn kích hoạt:</strong> Phải được thực hiện trong vòng <span style="color:red; font-weight:800">48 tiếng</span> kể từ khi lắp đặt.</p>
+                <h4><i class="fa-solid fa-circle-exclamation"></i> Lưu ý quan trọng:</h4>
+                <p>Để đảm bảo quyền lợi bảo hành, quý khách vui lòng hoàn tất việc đăng ký thông tin sản phẩm. <strong>Công ty TNHH Thương mại Dịch vụ HT25 Việt Nam</strong> sẽ không chịu trách nhiệm bảo hành đối với những sản phẩm không có dữ liệu đăng ký trên hệ thống.</p>
+                <p><strong>Quy định kích hoạt bảo hành:</strong> Đối với các Đại lý/gara đã lắp đặt sản phẩm cho khách hàng, nếu không hoàn tất kích hoạt bảo hành trong vòng <span style="color:var(--price-red); font-weight:800">48 tiếng</span> (kể từ thời điểm lắp đặt), Công ty TNHH Thương mại Dịch vụ HT25 Việt Nam sẽ từ chối bảo hành.</p>
+                <p>Các garage/đại lý vui lòng chủ động kích hoạt hoặc nhắc nhở khách hàng kích hoạt bảo hành ngay sau khi lắp đặt để đảm bảo quyền lợi cho quý khách hàng.</p>
             </div>
-            <p style="font-weight:700; text-align:right">HT25 VIỆT NAM TRÂN TRỌNG!</p>
+            
+            <p style="font-weight:700; text-align:right; font-style: italic;">Trân trọng cảm ơn!</p>
         </div>
     </section>
 
@@ -274,7 +267,7 @@
         <div class="marquee" id="project-list"></div>
     </section>
 
-    <!-- FOOTER (FIXED LOGO) -->
+    <!-- FOOTER -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
@@ -295,23 +288,20 @@
                 </div>
             </div>
         </div>
-        <div style="text-align:center; margin-top:60px; padding-top:20px; border-top:1px solid #1e293b; font-size:0.8rem; opacity:0.5">
-            © 2024 CÔNG TY TNHH TM DV HT25 VIỆT NAM. DESIGN BY EXPERT.
-        </div>
     </footer>
 
-    <!-- MODAL CHI TIẾT -->
+    <!-- MODAL -->
     <div id="pModal" class="modal" onclick="if(event.target==this) closeModal()">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
             <div class="modal-left"><img id="m-img" src="" style="width:100%; height:auto; max-height:400px; object-fit:contain"></div>
             <div class="modal-right">
-                <h2 id="m-title" style="color:var(--primary); margin-bottom:15px; line-height:1.3"></h2>
+                <h2 id="m-title" style="color:var(--primary); margin-bottom:15px;"></h2>
                 <div id="m-price" style="color:var(--price-red); font-size:2rem; font-weight:800; margin-bottom:25px"></div>
-                <div style="font-weight:700; border-bottom:2px solid #f1f5f9; padding-bottom:10px; margin-bottom:20px; text-transform:uppercase; font-size:0.85rem; letter-spacing:1px">Thông số kỹ thuật</div>
-                <ul id="m-specs" style="list-style:none; flex-grow:1"></ul>
-                <a id="m-zalo" href="https://zalo.me/0907590123" target="_blank" class="btn-zalo" style="margin-top:30px; text-align:center; font-size:1rem; padding:18px">
-                    <i class="fa-solid fa-comment-dots"></i> NHẬN TƯ VẤN BÁO GIÁ QUA ZALO
+                <div style="font-weight:700; border-bottom:2px solid #f1f5f9; padding-bottom:10px; margin-bottom:20px; text-transform:uppercase; font-size:0.85rem">Thông số kỹ thuật</div>
+                <ul id="m-specs" style="list-style:none"></ul>
+                <a id="m-zalo" href="https://zalo.me/0907590123" target="_blank" class="btn-zalo" style="margin-top:30px; text-align:center; padding:18px">
+                    <i class="fa-solid fa-comment-dots"></i> LIÊN HỆ TƯ VẤN QUA ZALO
                 </a>
             </div>
         </div>
@@ -339,17 +329,13 @@
             const p = products.find(x => x.ma == ma);
             if(!p) return;
             document.getElementById('m-title').innerText = p.ten;
-            document.getElementById('m-price').innerText = p.gia > 0 ? p.gia.toLocaleString() + 'đ' : 'Liên hệ hotline';
+            document.getElementById('m-price').innerText = p.gia > 0 ? p.gia.toLocaleString() + 'đ' : 'Liên hệ';
             document.getElementById('m-img').src = `data/${p.ma}.jpg`;
             document.getElementById('m-specs').innerHTML = p.mota.split('\n').filter(l=>l).map(l=>`<li style="margin-bottom:12px; display:flex; gap:10px; font-size:0.95rem"><i class="fa-solid fa-circle-check" style="color:#2ecc71; margin-top:4px"></i>${l}</li>`).join('');
             document.getElementById('m-zalo').href = `https://zalo.me/0907590123?text=Chào HT25, tôi muốn nhận báo giá sản phẩm: ${p.ten}`;
             document.getElementById('pModal').style.display = 'flex';
-            document.body.style.overflow = 'hidden';
         }
-        function closeModal() { 
-            document.getElementById('pModal').style.display = 'none'; 
-            document.body.style.overflow = 'auto';
-        }
+        function closeModal() { document.getElementById('pModal').style.display = 'none'; }
 
         async function init() {
             try {
@@ -382,7 +368,7 @@
 
                 document.getElementById('loader').style.display = 'none';
                 setInterval(() => moveSlide(1), 5000);
-            } catch (e) { console.error("Lỗi dữ liệu:", e); }
+            } catch (e) { console.error("Lỗi:", e); }
         }
         init();
     </script>
