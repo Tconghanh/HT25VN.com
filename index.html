@@ -12,166 +12,98 @@
     
     <style>
         :root {
-            --primary: #0071ba; 
-            --primary-light: #0088e0;
-            --price-red: #d92027;
-            --btn-orange: #ff6a00; 
-            --dark-bg: #0f172a;
-            --text-main: #2d3436;
-            --text-muted: #636e72;
-            --radius: 20px;
-            --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            --primary: #0071ba; --primary-light: #0088e0; --price-red: #d92027;
+            --btn-orange: #ff6a00; --dark-bg: #0f172a; --text-main: #2d3436;
+            --text-muted: #636e72; --radius: 20px; --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; scroll-behavior: smooth; }
         body { font-family: 'Roboto', sans-serif; line-height: 1.6; color: var(--text-main); background: #fff; overflow-x: hidden; }
 
-        /* --- HEADER & NAVIGATION --- */
+        /* HEADER */
         header { 
-            background: rgba(255,255,255,0.85); 
-            backdrop-filter: blur(15px); 
-            box-shadow: 0 2px 20px rgba(0,0,0,0.05); 
-            position: fixed; width: 100%; top: 0; z-index: 1000; height: 75px; 
-            display: flex; align-items: center; 
+            background: rgba(255,255,255,0.85); backdrop-filter: blur(15px); box-shadow: 0 2px 20px rgba(0,0,0,0.05); 
+            position: fixed; width: 100%; top: 0; z-index: 1000; height: 75px; display: flex; align-items: center; 
         }
         nav { max-width: 1400px; margin: auto; display: flex; justify-content: space-between; align-items: center; padding: 0 20px; width: 100%; }
         .logo img { height: 48px; width: auto; transition: var(--transition); }
-        .logo:hover img { transform: scale(1.05); }
-
         nav ul { display: flex; list-style: none; gap: 20px; align-items: center; }
-        nav ul li a { 
-            text-decoration: none; color: var(--text-main); font-weight: 700; 
-            font-size: 0.75rem; text-transform: uppercase; transition: var(--transition);
-        }
-        nav ul li a:hover { color: var(--primary); }
-
-        .nav-hotline { 
-            color: var(--price-red) !important; border: 2px solid var(--price-red); 
-            padding: 8px 18px !important; border-radius: 30px; 
-            display: flex !important; align-items: center; gap: 8px;
-            animation: pulse-red 2s infinite;
-        }
-
-        @keyframes pulse-red {
-            0% { box-shadow: 0 0 0 0 rgba(217, 32, 39, 0.4); }
-            70% { box-shadow: 0 0 0 10px rgba(217, 32, 39, 0); }
-            100% { box-shadow: 0 0 0 0 rgba(217, 32, 39, 0); }
-        }
-
+        nav ul li a { text-decoration: none; color: var(--text-main); font-weight: 700; font-size: 0.75rem; text-transform: uppercase; }
+        .nav-hotline { color: var(--price-red) !important; border: 2px solid var(--price-red); padding: 8px 18px !important; border-radius: 30px; display: flex !important; align-items: center; gap: 8px; animation: pulse-red 2s infinite; }
+        @keyframes pulse-red { 0% { box-shadow: 0 0 0 0 rgba(217, 32, 39, 0.4); } 70% { box-shadow: 0 0 0 10px rgba(217, 32, 39, 0); } 100% { box-shadow: 0 0 0 0 rgba(217, 32, 39, 0); } }
         .menu-toggle { display: none; font-size: 1.6rem; color: var(--primary); cursor: pointer; }
 
-        /* --- SLIDER --- */
+        /* SLIDER */
         .slider-container { width: 100%; height: 550px; margin-top: 75px; overflow: hidden; position: relative; }
         .slider { display: flex; width: 100%; height: 100%; transition: transform 0.8s cubic-bezier(0.65, 0, 0.35, 1); }
         .slide { min-width: 100%; height: 100%; }
         .slide img { width: 100%; height: 100%; object-fit: cover; }
-        .slider-btn { 
-            position: absolute; top: 50%; transform: translateY(-50%); 
-            background: rgba(255,255,255,0.3); border: none; width: 50px; height: 50px; 
-            border-radius: 50%; cursor: pointer; z-index: 10; color: #fff; backdrop-filter: blur(5px);
-            transition: var(--transition);
-        }
-        .slider-btn:hover { background: var(--primary); }
+        .slider-btn { position: absolute; top: 50%; transform: translateY(-50%); background: rgba(255,255,255,0.3); border: none; width: 50px; height: 50px; border-radius: 50%; cursor: pointer; z-index: 10; color: #fff; backdrop-filter: blur(5px); }
         .prev-btn { left: 25px; } .next-btn { right: 25px; }
 
-        /* --- SECTION COMMONS --- */
-        section { padding: 90px 20px; max-width: 1300px; margin: auto; }
-        .section-title { text-align: center; margin-bottom: 50px; position: relative; }
+        section { padding: 80px 20px; max-width: 1300px; margin: auto; }
+        .section-title { text-align: center; margin-bottom: 50px; }
         .section-title h2 { font-size: 2.2rem; color: var(--primary); text-transform: uppercase; font-weight: 800; font-style: italic; }
         .underline { width: 80px; height: 5px; background: var(--btn-orange); margin: 10px auto 0; border-radius: 5px; }
 
-        /* --- PRODUCTS --- */
+        /* PRODUCTS */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
-        .product-card { 
-            background: #fff; border-radius: var(--radius); padding: 25px; 
-            text-align: center; transition: var(--transition); 
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9;
-            display: flex; flex-direction: column;
-        }
+        .product-card { background: #fff; border-radius: var(--radius); padding: 25px; text-align: center; transition: var(--transition); box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; display: flex; flex-direction: column; }
         .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
-        .product-card img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 20px; }
+        .product-card img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 20px; cursor: pointer; }
         .product-card h3 { font-size: 0.95rem; font-weight: 700; height: 45px; overflow: hidden; margin-bottom: 15px; color: var(--dark-bg); }
         .product-card .price { color: var(--price-red); font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; }
-        
-        .btn-zalo { 
-            background: linear-gradient(135deg, #0068ff, #0052cc); 
-            color: #fff; border: none; padding: 14px; border-radius: 12px; 
-            font-weight: 700; text-decoration: none; display: block; 
-            transition: var(--transition); font-size: 0.85rem;
-        }
-        .btn-zalo:hover { transform: scale(1.03); box-shadow: 0 5px 15px rgba(0,104,255,0.3); }
+        .btn-zalo { background: linear-gradient(135deg, #0068ff, #0052cc); color: #fff; border: none; padding: 14px; border-radius: 12px; font-weight: 700; text-decoration: none; display: block; transition: var(--transition); font-size: 0.85rem; text-align: center; }
 
-        /* --- INTRO & ACTIVITY --- */
+        /* INTRO & ACTIVITY */
         .intro-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .intro-img-box { border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
-        .intro-img-box img { width: 100%; display: block; transition: 0.6s; }
-        .intro-img-box:hover img { transform: scale(1.08); }
-        .intro-text h3 { font-size: 1.8rem; margin-bottom: 20px; color: var(--dark-bg); }
-        .intro-text p { font-size: 1.05rem; color: var(--text-muted); text-align: justify; margin-bottom: 25px; }
-
+        .intro-img-box img { width: 100%; display: block; }
         .activity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
-        .activity-card { 
-            background: #fff; padding: 45px 30px; border-radius: var(--radius); 
-            text-align: center; transition: var(--transition); 
-            box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid #f8fafc;
-        }
+        .activity-card { background: #fff; padding: 45px 30px; border-radius: var(--radius); text-align: center; transition: var(--transition); box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid #f8fafc; }
         .activity-card:hover { background: var(--primary); transform: translateY(-10px); }
         .activity-card:hover h4, .activity-card:hover p { color: #fff; }
-        .activity-icon { 
-            width: 70px; height: 70px; background: #f1f5f9; color: var(--primary); 
-            border-radius: 50%; display: flex; align-items: center; justify-content: center; 
-            margin: 0 auto 25px; font-size: 1.8rem; transition: var(--transition);
-        }
+        .activity-icon { width: 70px; height: 70px; background: #f1f5f9; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 1.8rem; }
         .activity-card:hover .activity-icon { background: rgba(255,255,255,0.2); color: #fff; }
-        .activity-card h4 { font-size: 1.2rem; margin-bottom: 15px; text-transform: uppercase; }
 
-        /* --- WARRANTY POLICY (FULL CONTENT) --- */
+        /* POLICY SECTION */
         #warranty-policy { background: #f8fafc; max-width: 100%; }
         .policy-container { max-width: 1100px; margin: auto; background: #fff; padding: 50px; border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.05); border-top: 6px solid var(--primary); }
-        .policy-container p { margin-bottom: 18px; font-size: 1.05rem; line-height: 1.8; color: #444; }
-        .policy-container strong { color: #1a1a1a; }
-        
-        .policy-warning { 
-            background: #fff5f5; border-left: 6px solid var(--price-red); 
-            padding: 35px; border-radius: 15px; margin: 35px 0; 
-        }
-        .policy-warning h4 { color: var(--price-red); font-size: 1.25rem; margin-bottom: 15px; display: flex; align-items: center; gap: 10px; text-transform: uppercase; }
-        .policy-warning p { font-size: 1rem; margin-bottom: 12px; font-weight: 500; }
+        .policy-warning { background: #fff5f5; border-left: 6px solid var(--price-red); padding: 30px; border-radius: 15px; margin: 30px 0; }
 
-        /* --- MARQUEE --- */
-        #projects { background: var(--dark-bg); padding: 80px 0; overflow: hidden; }
+        /* FOOTER */
+        footer { background: #070d1a; color: #94a3b8; padding: 80px 20px 30px; border-top: 1px solid #1e293b; }
+        .footer-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; text-align: center; }
+        .footer-col { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .footer-logo-wrap { max-width: 220px; width: 100%; margin-bottom: 25px; }
+        .footer-logo-wrap img { width: 100%; height: auto; object-fit: contain; }
+        .footer-col h4 { color: #fff; margin-bottom: 30px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; }
+        .footer-social { display: flex; gap: 20px; font-size: 1.8rem; margin-top: 15px; }
+        .footer-social a { color: #94a3b8; transition: 0.3s; }
+
+        /* MARQUEE */
+        #projects { background: var(--dark-bg); padding: 50px 0; overflow: hidden; }
         .marquee { display: flex; width: max-content; animation: scroll 40s linear infinite; gap: 30px; }
         .proj-card { width: 300px; border-radius: 15px; overflow: hidden; background: #1e293b; }
         .proj-card img { width: 100%; height: 180px; object-fit: cover; opacity: 0.8; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* --- FOOTER (FIXED) --- */
-        footer { background: #070d1a; color: #94a3b8; padding: 80px 20px 30px; border-top: 1px solid #1e293b; }
-        .footer-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; text-align: center; }
-        .footer-col { display: flex; flex-direction: column; align-items: center; width: 100%; }
-        
-        .footer-logo-wrap { max-width: 220px; width: 100%; margin-bottom: 25px; }
-        .footer-logo-wrap img { width: 100%; height: auto; object-fit: contain; }
+        /* MODAL */
+        .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(10px); }
+        .modal-content { background: #fff; width: 100%; max-width: 1000px; border-radius: 30px; display: grid; grid-template-columns: 45% 55%; position: relative; overflow: hidden; max-height: 90vh; }
+        .modal-left { padding: 40px; border-right: 1px solid #f1f5f9; display: flex; flex-direction: column; align-items: center; gap: 20px; }
+        .modal-right { padding: 50px; overflow-y: auto; display: flex; flex-direction: column; }
+        .close-btn { position: absolute; top: 20px; right: 25px; font-size: 40px; color: #cbd5e1; cursor: pointer; z-index: 100; }
+        #thumb-box { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
+        #thumb-box img { width: 70px; height: 70px; object-fit: contain; border: 1px solid #eee; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        #thumb-box img:hover { border-color: var(--primary); transform: scale(1.05); }
 
-        .footer-col h4 { color: #fff; margin-bottom: 30px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; position: relative; }
-        .footer-col h4::after { content: ''; width: 40px; height: 3px; background: var(--primary); position: absolute; bottom: -10px; left: 50%; transform: translateX(-50%); }
-        .footer-col ul { list-style: none; padding: 0; }
-        .footer-col ul li { margin-bottom: 15px; font-size: 0.95rem; }
-        .footer-social { display: flex; gap: 20px; font-size: 1.8rem; margin-top: 15px; }
-        .footer-social a { color: #94a3b8; transition: 0.3s; }
-        .footer-social a:hover { color: var(--primary-light); transform: translateY(-5px); }
-
-        /* --- MOBILE --- */
         @media (max-width: 768px) {
             .slider-container { height: 280px; }
-            .intro-container { grid-template-columns: 1fr; gap: 40px; }
-            .policy-container { padding: 30px; }
+            .intro-container { grid-template-columns: 1fr; }
+            .modal-content { grid-template-columns: 1fr; }
             .menu-toggle { display: block; }
-            nav ul { 
-                position: fixed; top: 0; right: -100%; width: 85%; height: 100vh; 
-                background: #fff; flex-direction: column; padding: 100px 40px; 
-                transition: 0.5s; z-index: 1002; box-shadow: -20px 0 40px rgba(0,0,0,0.1); 
-            }
+            nav ul { position: fixed; top: 0; right: -100%; width: 85%; height: 100vh; background: #fff; flex-direction: column; padding: 100px 40px; transition: 0.5s; z-index: 1002; box-shadow: -20px 0 40px rgba(0,0,0,0.1); }
             nav ul.active { right: 0; }
             nav ul li { width: 100%; }
             nav ul li a { display: block; border-bottom: 1px solid #f1f5f9; padding: 15px 0; font-size: 1rem; }
@@ -184,10 +116,8 @@
 </head>
 <body>
 
-    <!-- LOADER -->
     <div id="loader"><div class="spinner"></div><p style="margin-top:20px; font-weight:700; color:var(--primary);">HT25 VIỆT NAM</p></div>
 
-    <!-- HEADER -->
     <header>
         <nav>
             <a href="#" class="logo"><img src="data/logo.jpg" alt="HT25 Logo"></a>
@@ -203,7 +133,6 @@
         </nav>
     </header>
 
-    <!-- SLIDER -->
     <div class="slider-container">
         <button class="slider-btn prev-btn" onclick="moveSlide(-1)"><i class="fa-solid fa-chevron-left"></i></button>
         <button class="slider-btn next-btn" onclick="moveSlide(1)"><i class="fa-solid fa-chevron-right"></i></button>
@@ -214,16 +143,14 @@
         </div>
     </div>
 
-    <!-- SẢN PHẨM -->
     <section id="products">
         <div class="section-title"><h2>Sản phẩm tiêu biểu</h2><div class="underline"></div></div>
         <div class="product-grid" id="product-grid"></div>
     </section>
 
-    <!-- GIỚI THIỆU -->
     <section id="intro">
         <div class="intro-container">
-            <div class="intro-img-box"><img src="data/GioiThieu.jpg" alt="Về HT25"></div>
+            <div class="intro-img-box"><img src="data/GioiThieu.jpg"></div>
             <div class="intro-text">
                 <div class="section-title" style="text-align:left"><h2 style="font-size:1.8rem">VỀ CHÚNG TÔI</h2><div class="underline" style="margin:10px 0"></div></div>
                 <div id="intro-text-content"></div>
@@ -237,13 +164,11 @@
         </div>
     </section>
 
-    <!-- LĨNH VỰC HOẠT ĐỘNG -->
     <section id="activity">
         <div class="section-title"><h2>Lĩnh vực hoạt động</h2><div class="underline"></div></div>
         <div class="activity-grid" id="activity-list"></div>
     </section>
 
-    <!-- CHÍNH SÁCH BẢO HÀNH (FULL) -->
     <section id="warranty-policy">
         <div class="policy-container">
             <div class="section-title"><h2>Chính sách bảo hành</h2><div class="underline"></div></div>
@@ -252,7 +177,7 @@
             <p><strong>Các lỗi được bảo hành:</strong> Xì dầu, chết phuộc. Trong trường hợp cần hỗ trợ về bảo hành hoặc kỹ thuật, xin quý khách vui lòng liên hệ trực tiếp với chúng tôi qua hotline/Zalo: <a href="https://zalo.me/0907590123" style="color:var(--btn-orange); font-weight:700; text-decoration:none">0907.590.123</a> - <a href="https://zalo.me/0879907979" style="color:var(--btn-orange); font-weight:700; text-decoration:none">0879.90.7979</a> để được phục vụ tốt nhất.</p>
 
             <div class="policy-warning">
-                <h4><i class="fa-solid fa-circle-exclamation"></i> Lưu ý quan trọng:</h4>
+                <h4 style="color:var(--price-red); margin-bottom:15px"><i class="fa-solid fa-circle-exclamation"></i> Lưu ý quan trọng:</h4>
                 <p>Để đảm bảo quyền lợi bảo hành, quý khách vui lòng hoàn tất việc đăng ký thông tin sản phẩm. <strong>Công ty TNHH Thương mại Dịch vụ HT25 Việt Nam</strong> sẽ không chịu trách nhiệm bảo hành đối với những sản phẩm không có dữ liệu đăng ký trên hệ thống.</p>
                 <p><strong>Quy định kích hoạt bảo hành:</strong> Đối với các Đại lý/gara đã lắp đặt sản phẩm cho khách hàng, nếu không hoàn tất kích hoạt bảo hành trong vòng <span style="color:var(--price-red); font-weight:800">48 tiếng</span> (kể từ thời điểm lắp đặt), Công ty TNHH Thương mại Dịch vụ HT25 Việt Nam sẽ từ chối bảo hành.</p>
                 <p>Các garage/đại lý vui lòng chủ động kích hoạt hoặc nhắc nhở khách hàng kích hoạt bảo hành ngay sau khi lắp đặt để đảm bảo quyền lợi cho quý khách hàng.</p>
@@ -262,24 +187,22 @@
         </div>
     </section>
 
-    <!-- MARQUEE KHÁCH HÀNG -->
     <section id="projects">
         <div class="marquee" id="project-list"></div>
     </section>
 
-    <!-- FOOTER -->
     <footer>
         <div class="footer-grid">
             <div class="footer-col">
-                <div class="footer-logo-wrap"><img src="data/logo.jpg" alt="HT25 Footer Logo"></div>
-                <div id="f-intro" style="font-size:0.9rem; line-height:1.7"></div>
+                <div class="footer-logo-wrap"><img src="data/logo.jpg"></div>
+                <div id="f-intro"></div>
             </div>
             <div class="footer-col">
-                <h4>LIÊN HỆ CHÚNG TÔI</h4>
+                <h4>LIÊN HỆ</h4>
                 <ul id="f-contact"></ul>
             </div>
             <div class="footer-col">
-                <h4>KẾT NỐI NGAY</h4>
+                <h4>MẠNG XÃ HỘI</h4>
                 <div class="footer-social">
                     <a href="https://zalo.me/0907590123" target="_blank"><i class="fa-solid fa-comment-dots"></i></a>
                     <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
@@ -290,19 +213,19 @@
         </div>
     </footer>
 
-    <!-- MODAL -->
     <div id="pModal" class="modal" onclick="if(event.target==this) closeModal()">
         <div class="modal-content">
             <span class="close-btn" onclick="closeModal()">&times;</span>
-            <div class="modal-left"><img id="m-img" src="" style="width:100%; height:auto; max-height:400px; object-fit:contain"></div>
+            <div class="modal-left">
+                <img id="m-img" src="" style="width:100%; height:350px; object-fit:contain">
+                <div id="thumb-box"></div>
+            </div>
             <div class="modal-right">
-                <h2 id="m-title" style="color:var(--primary); margin-bottom:15px;"></h2>
-                <div id="m-price" style="color:var(--price-red); font-size:2rem; font-weight:800; margin-bottom:25px"></div>
+                <h2 id="m-title"></h2>
+                <div id="m-price" style="color:var(--price-red); font-size:2rem; font-weight:800; margin-bottom:20px"></div>
                 <div style="font-weight:700; border-bottom:2px solid #f1f5f9; padding-bottom:10px; margin-bottom:20px; text-transform:uppercase; font-size:0.85rem">Thông số kỹ thuật</div>
                 <ul id="m-specs" style="list-style:none"></ul>
-                <a id="m-zalo" href="https://zalo.me/0907590123" target="_blank" class="btn-zalo" style="margin-top:30px; text-align:center; padding:18px">
-                    <i class="fa-solid fa-comment-dots"></i> LIÊN HỆ TƯ VẤN QUA ZALO
-                </a>
+                <a id="m-zalo" href="#" target="_blank" class="btn-zalo" style="margin-top:auto; padding:18px"><i class="fa-solid fa-comment-dots"></i> NHẬN TƯ VẤN QUA ZALO</a>
             </div>
         </div>
     </div>
@@ -325,29 +248,40 @@
             document.getElementById('slider').style.transform = `translateX(-${curSlide * 100}%)`;
         }
 
+        // KHÔI PHỤC TÍNH NĂNG THÔNG SỐ VÀ SẢN PHẨM PHỤ
         function openModal(ma) {
             const p = products.find(x => x.ma == ma);
             if(!p) return;
             document.getElementById('m-title').innerText = p.ten;
             document.getElementById('m-price').innerText = p.gia > 0 ? p.gia.toLocaleString() + 'đ' : 'Liên hệ';
             document.getElementById('m-img').src = `data/${p.ma}.jpg`;
-            document.getElementById('m-specs').innerHTML = p.mota.split('\n').filter(l=>l).map(l=>`<li style="margin-bottom:12px; display:flex; gap:10px; font-size:0.95rem"><i class="fa-solid fa-circle-check" style="color:#2ecc71; margin-top:4px"></i>${l}</li>`).join('');
-            document.getElementById('m-zalo').href = `https://zalo.me/0907590123?text=Chào HT25, tôi muốn nhận báo giá sản phẩm: ${p.ten}`;
+            
+            // Hiện thông số kỹ thuật dạng danh sách
+            document.getElementById('m-specs').innerHTML = p.mota.split('\n').filter(l=>l.trim()).map(l=>`<li style="margin-bottom:10px; display:flex; gap:10px; font-size:0.95rem"><i class="fa-solid fa-circle-check" style="color:#2ecc71; margin-top:4px"></i>${l}</li>`).join('');
+            
+            // Hiện ảnh thumbnails (sản phẩm phụ)
+            let th = `<img src="data/${p.ma}.jpg" onclick="document.getElementById('m-img').src=this.src">`;
+            [1,2,3,4].forEach(n => {
+                th += `<img src="data/${p.ma}.${n}.jpg" onerror="this.style.display='none'" onclick="document.getElementById('m-img').src=this.src">`;
+            });
+            document.getElementById('thumb-box').innerHTML = th;
+            
+            document.getElementById('m-zalo').href = `https://zalo.me/0907590123?text=Tư vấn sản phẩm: ${p.ten}`;
             document.getElementById('pModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
         }
-        function closeModal() { document.getElementById('pModal').style.display = 'none'; }
+
+        function closeModal() { document.getElementById('pModal').style.display = 'none'; document.body.style.overflow = 'auto'; }
 
         async function init() {
             try {
                 const home = await fetchData('Trang_Chu');
                 document.getElementById('intro-text-content').innerHTML = `<p>${home[2]?.c[1]?.v || ""}</p>`;
-                
                 const acts = (home[3]?.c[1]?.v || "").split('\n').filter(l=>l);
                 document.getElementById('activity-list').innerHTML = acts.map((l, i) => {
                     let [t, d] = l.split(':');
                     return `<div class="activity-card"><div class="activity-icon"><i class="fa-solid ${actIcons[i % actIcons.length]}"></i></div><h4>${t}</h4><p>${d||''}</p></div>`;
                 }).join('');
-
                 document.getElementById('f-intro').innerText = home[4]?.c[1]?.v || "";
                 document.getElementById('f-contact').innerHTML = (home[5]?.c[1]?.v || "").split('\n').map(l=>`<li>${l}</li>`).join('');
 
@@ -355,7 +289,7 @@
                 products = prods.map(r => ({ ma: r.c[0]?.v, ten: r.c[1]?.v, gia: r.c[3]?.v || 0, mota: r.c[4]?.v || "" })).filter(x=>x.ma && x.ma != "Mã");
                 document.getElementById('product-grid').innerHTML = products.map(p => `
                     <div class="product-card">
-                        <img src="data/${p.ma}.jpg" onclick="openModal('${p.ma}')" loading="lazy">
+                        <img src="data/${p.ma}.jpg" onclick="openModal('${p.ma}')">
                         <h3 onclick="openModal('${p.ma}')">${p.ten}</h3>
                         <div class="price">${p.gia > 0 ? p.gia.toLocaleString() + 'đ' : 'Liên hệ'}</div>
                         <a href="https://zalo.me/0907590123" target="_blank" class="btn-zalo"><i class="fa-solid fa-comment-dots"></i> LIÊN HỆ ZALO</a>
@@ -363,12 +297,11 @@
                 `).join('');
 
                 const pjs = await fetchData('Du_An');
-                let pjH = pjs.slice(1).map(pj => `<div class="proj-card"><img src="data/${pj.c[0]?.v}.jpg" loading="lazy"></div>`).join('');
+                let pjH = pjs.slice(1).map(pj => `<div class="proj-card"><img src="data/${pj.c[0]?.v}.jpg"></div>`).join('');
                 document.getElementById('project-list').innerHTML = pjH + pjH;
-
                 document.getElementById('loader').style.display = 'none';
                 setInterval(() => moveSlide(1), 5000);
-            } catch (e) { console.error("Lỗi:", e); }
+            } catch (e) { console.log(e); }
         }
         init();
     </script>
