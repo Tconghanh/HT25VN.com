@@ -64,22 +64,11 @@
         .activity-card:hover { background: var(--primary); transform: translateY(-10px); }
         .activity-card:hover h4, .activity-card:hover p { color: #fff; }
         .activity-icon { width: 70px; height: 70px; background: #f1f5f9; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 1.8rem; }
-        .activity-card:hover .activity-icon { background: rgba(255,255,255,0.2); color: #fff; }
 
         /* POLICY SECTION */
         #warranty-policy { background: #f8fafc; max-width: 100%; }
         .policy-container { max-width: 1100px; margin: auto; background: #fff; padding: 50px; border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.05); border-top: 6px solid var(--primary); }
         .policy-warning { background: #fff5f5; border-left: 6px solid var(--price-red); padding: 30px; border-radius: 15px; margin: 30px 0; }
-
-        /* FOOTER */
-        footer { background: #070d1a; color: #94a3b8; padding: 80px 20px 30px; border-top: 1px solid #1e293b; }
-        .footer-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 50px; text-align: center; }
-        .footer-col { display: flex; flex-direction: column; align-items: center; width: 100%; }
-        .footer-logo-wrap { max-width: 220px; width: 100%; margin-bottom: 25px; }
-        .footer-logo-wrap img { width: 100%; height: auto; object-fit: contain; }
-        .footer-col h4 { color: #fff; margin-bottom: 30px; font-size: 1.1rem; text-transform: uppercase; letter-spacing: 2px; }
-        .footer-social { display: flex; gap: 20px; font-size: 1.8rem; margin-top: 15px; }
-        .footer-social a { color: #94a3b8; transition: 0.3s; }
 
         /* MARQUEE */
         #projects { background: var(--dark-bg); padding: 50px 0; overflow: hidden; }
@@ -87,6 +76,18 @@
         .proj-card { width: 300px; border-radius: 15px; overflow: hidden; background: #1e293b; }
         .proj-card img { width: 100%; height: 180px; object-fit: cover; opacity: 0.8; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
+
+        /* FOOTER - 3 CỘT THEO YÊU CẦU */
+        footer { background: #070d1a; color: #94a3b8; padding: 80px 20px 50px; border-top: 1px solid #1e293b; }
+        .footer-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+        .footer-col { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .footer-logo-wrap { max-width: 220px; width: 100%; margin-bottom: 20px; }
+        .footer-logo-wrap img { width: 100%; height: auto; object-fit: contain; }
+        .footer-col h4 { color: #fff; margin-bottom: 25px; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; position: relative; padding-bottom: 10px; }
+        .footer-col h4::after { content: ''; width: 30px; height: 2px; background: var(--primary); position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); }
+        .footer-col ul { list-style: none; padding: 0; width: 100%; }
+        .footer-col ul li { margin-bottom: 10px; font-size: 0.9rem; line-height: 1.6; }
+        .footer-col p { font-size: 0.9rem; line-height: 1.6; color: #cbd5e1; }
 
         /* MODAL */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(10px); }
@@ -96,7 +97,10 @@
         .close-btn { position: absolute; top: 20px; right: 25px; font-size: 40px; color: #cbd5e1; cursor: pointer; z-index: 100; }
         #thumb-box { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
         #thumb-box img { width: 70px; height: 70px; object-fit: contain; border: 1px solid #eee; border-radius: 8px; cursor: pointer; transition: 0.2s; }
-        #thumb-box img:hover { border-color: var(--primary); transform: scale(1.05); }
+
+        @media (max-width: 992px) {
+            .footer-grid { grid-template-columns: 1fr; gap: 50px; }
+        }
 
         @media (max-width: 768px) {
             .slider-container { height: 280px; }
@@ -105,8 +109,6 @@
             .menu-toggle { display: block; }
             nav ul { position: fixed; top: 0; right: -100%; width: 85%; height: 100vh; background: #fff; flex-direction: column; padding: 100px 40px; transition: 0.5s; z-index: 1002; box-shadow: -20px 0 40px rgba(0,0,0,0.1); }
             nav ul.active { right: 0; }
-            nav ul li { width: 100%; }
-            nav ul li a { display: block; border-bottom: 1px solid #f1f5f9; padding: 15px 0; font-size: 1rem; }
         }
 
         #loader { position: fixed; inset: 0; background: #fff; z-index: 9999; display: flex; flex-direction: column; justify-content: center; align-items: center; }
@@ -177,7 +179,7 @@
             <p><strong>Các lỗi được bảo hành:</strong> Xì dầu, chết phuộc. Trong trường hợp cần hỗ trợ về bảo hành hoặc kỹ thuật, xin quý khách vui lòng liên hệ trực tiếp với chúng tôi qua hotline/Zalo: <a href="https://zalo.me/0907590123" style="color:var(--btn-orange); font-weight:700; text-decoration:none">0907.590.123</a> - <a href="https://zalo.me/0879907979" style="color:var(--btn-orange); font-weight:700; text-decoration:none">0879.90.7979</a> để được phục vụ tốt nhất.</p>
 
             <div class="policy-warning">
-                <h4 style="color:var(--price-red); margin-bottom:15px"><i class="fa-solid fa-circle-exclamation"></i> Lưu ý quan trọng:</h4>
+                <h4><i class="fa-solid fa-circle-exclamation"></i> Lưu ý quan trọng:</h4>
                 <p>Để đảm bảo quyền lợi bảo hành, quý khách vui lòng hoàn tất việc đăng ký thông tin sản phẩm. <strong>Công ty TNHH Thương mại Dịch vụ HT25 Việt Nam</strong> sẽ không chịu trách nhiệm bảo hành đối với những sản phẩm không có dữ liệu đăng ký trên hệ thống.</p>
                 <p><strong>Quy định kích hoạt bảo hành:</strong> Đối với các Đại lý/gara đã lắp đặt sản phẩm cho khách hàng, nếu không hoàn tất kích hoạt bảo hành trong vòng <span style="color:var(--price-red); font-weight:800">48 tiếng</span> (kể từ thời điểm lắp đặt), Công ty TNHH Thương mại Dịch vụ HT25 Việt Nam sẽ từ chối bảo hành.</p>
                 <p>Các garage/đại lý vui lòng chủ động kích hoạt hoặc nhắc nhở khách hàng kích hoạt bảo hành ngay sau khi lắp đặt để đảm bảo quyền lợi cho quý khách hàng.</p>
@@ -191,25 +193,37 @@
         <div class="marquee" id="project-list"></div>
     </section>
 
+    <!-- CHÂN TRANG 3 CỘT - NỘI DUNG CỐ ĐỊNH THEO YÊU CẦU -->
     <footer>
         <div class="footer-grid">
+            <!-- Cột 1 -->
             <div class="footer-col">
-                <div class="footer-logo-wrap"><img src="data/logo.jpg"></div>
-                <div id="f-intro"></div>
+                <div class="footer-logo-wrap"><img src="data/logo.jpg" alt="HT25 Logo"></div>
+                <p style="color: #fff; font-weight: 700; margin-bottom: 5px; text-transform: uppercase;">CÔNG TY TNHH TMDV HT25 VIỆT NAM</p>
+                <p>Phuộc HT25 REBOUND điều chỉnh 16 nấc</p>
             </div>
+            <!-- Cột 2 -->
             <div class="footer-col">
-                <h4>LIÊN HỆ</h4>
-                <ul id="f-contact"></ul>
+                <h4>TRỤ SỞ CHÍNH</h4>
+                <ul>
+                    <li>Trụ sở: 18 Đường 291G, Phường Long Trường, TP.HCM</li>
+                    <li>Mã số thuế: 0319073806</li>
+                    <li>Hotline: 0907 590 123</li>
+                    <li>Website: www.HT25VN.com</li>
+                </ul>
             </div>
+            <!-- Cột 3 -->
             <div class="footer-col">
-                <h4>MẠNG XÃ HỘI</h4>
-                <div class="footer-social">
-                    <a href="https://zalo.me/0907590123" target="_blank"><i class="fa-solid fa-comment-dots"></i></a>
-                    <a href="#"><i class="fa-brands fa-facebook-f"></i></a>
-                    <a href="#"><i class="fa-brands fa-youtube"></i></a>
-                    <a href="#"><i class="fa-brands fa-tiktok"></i></a>
-                </div>
+                <h4>VP ĐẠI DIỆN PHILIPPINES</h4>
+                <ul>
+                    <li>Address: 7 Zinia St. Cainta Greenpark Village, Cainta, Rizal</li>
+                    <li>Phone number: +639324298518</li>
+                    <li>Website: www.HT25VN.com</li>
+                </ul>
             </div>
+        </div>
+        <div style="text-align:center; margin-top:50px; font-size:0.8rem; opacity:0.4; letter-spacing: 1px;">
+            © 2024 CÔNG TY TNHH TM DV HT25 VIỆT NAM. ALL RIGHTS RESERVED.
         </div>
     </footer>
 
@@ -221,7 +235,7 @@
                 <div id="thumb-box"></div>
             </div>
             <div class="modal-right">
-                <h2 id="m-title"></h2>
+                <h2 id="m-title" style="color: var(--primary)"></h2>
                 <div id="m-price" style="color:var(--price-red); font-size:2rem; font-weight:800; margin-bottom:20px"></div>
                 <div style="font-weight:700; border-bottom:2px solid #f1f5f9; padding-bottom:10px; margin-bottom:20px; text-transform:uppercase; font-size:0.85rem">Thông số kỹ thuật</div>
                 <ul id="m-specs" style="list-style:none"></ul>
@@ -248,24 +262,19 @@
             document.getElementById('slider').style.transform = `translateX(-${curSlide * 100}%)`;
         }
 
-        // KHÔI PHỤC TÍNH NĂNG THÔNG SỐ VÀ SẢN PHẨM PHỤ
         function openModal(ma) {
             const p = products.find(x => x.ma == ma);
             if(!p) return;
             document.getElementById('m-title').innerText = p.ten;
             document.getElementById('m-price').innerText = p.gia > 0 ? p.gia.toLocaleString() + 'đ' : 'Liên hệ';
             document.getElementById('m-img').src = `data/${p.ma}.jpg`;
-            
-            // Hiện thông số kỹ thuật dạng danh sách
             document.getElementById('m-specs').innerHTML = p.mota.split('\n').filter(l=>l.trim()).map(l=>`<li style="margin-bottom:10px; display:flex; gap:10px; font-size:0.95rem"><i class="fa-solid fa-circle-check" style="color:#2ecc71; margin-top:4px"></i>${l}</li>`).join('');
             
-            // Hiện ảnh thumbnails (sản phẩm phụ)
             let th = `<img src="data/${p.ma}.jpg" onclick="document.getElementById('m-img').src=this.src">`;
             [1,2,3,4].forEach(n => {
                 th += `<img src="data/${p.ma}.${n}.jpg" onerror="this.style.display='none'" onclick="document.getElementById('m-img').src=this.src">`;
             });
             document.getElementById('thumb-box').innerHTML = th;
-            
             document.getElementById('m-zalo').href = `https://zalo.me/0907590123?text=Tư vấn sản phẩm: ${p.ten}`;
             document.getElementById('pModal').style.display = 'flex';
             document.body.style.overflow = 'hidden';
@@ -282,8 +291,6 @@
                     let [t, d] = l.split(':');
                     return `<div class="activity-card"><div class="activity-icon"><i class="fa-solid ${actIcons[i % actIcons.length]}"></i></div><h4>${t}</h4><p>${d||''}</p></div>`;
                 }).join('');
-                document.getElementById('f-intro').innerText = home[4]?.c[1]?.v || "";
-                document.getElementById('f-contact').innerHTML = (home[5]?.c[1]?.v || "").split('\n').map(l=>`<li>${l}</li>`).join('');
 
                 const prods = await fetchData('San_Pham');
                 products = prods.map(r => ({ ma: r.c[0]?.v, ten: r.c[1]?.v, gia: r.c[3]?.v || 0, mota: r.c[4]?.v || "" })).filter(x=>x.ma && x.ma != "Mã");
