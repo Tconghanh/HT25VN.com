@@ -49,7 +49,6 @@
         /* PRODUCTS */
         .product-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(260px, 1fr)); gap: 30px; }
         .product-card { background: #fff; border-radius: var(--radius); padding: 25px; text-align: center; transition: var(--transition); box-shadow: 0 10px 30px rgba(0,0,0,0.05); border: 1px solid #f1f5f9; display: flex; flex-direction: column; }
-        .product-card:hover { transform: translateY(-10px); box-shadow: 0 20px 40px rgba(0,0,0,0.1); }
         .product-card img { width: 100%; height: 200px; object-fit: contain; margin-bottom: 20px; cursor: pointer; }
         .product-card h3 { font-size: 0.95rem; font-weight: 700; height: 45px; overflow: hidden; margin-bottom: 15px; color: var(--dark-bg); }
         .product-card .price { color: var(--price-red); font-weight: 800; font-size: 1.3rem; margin-bottom: 20px; }
@@ -66,9 +65,31 @@
         .activity-icon { width: 70px; height: 70px; background: #f1f5f9; color: var(--primary); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 0 auto 25px; font-size: 1.8rem; }
 
         /* POLICY SECTION */
-        #warranty-policy { background: #f8fafc; max-width: 100%; }
+        #warranty-policy { background: #f8fafc; max-width: 100%; padding-bottom: 0; }
         .policy-container { max-width: 1100px; margin: auto; background: #fff; padding: 50px; border-radius: var(--radius); box-shadow: 0 10px 40px rgba(0,0,0,0.05); border-top: 6px solid var(--primary); }
         .policy-warning { background: #fff5f5; border-left: 6px solid var(--price-red); padding: 30px; border-radius: 15px; margin: 30px 0; }
+
+        /* THÔNG BÁO QUAN TRỌNG - PHẦN MỚI THÊM */
+        #important-notice { background: #f8fafc; max-width: 100%; padding-top: 40px; }
+        .notice-card { 
+            max-width: 1100px; margin: auto; background: #fff; padding: 40px; 
+            border-radius: var(--radius); border: 2px solid #ffcc00; 
+            box-shadow: 0 15px 30px rgba(255, 204, 0, 0.1); position: relative;
+        }
+        .notice-card h3 { color: #e67e22; font-size: 1.4rem; margin-bottom: 20px; display: flex; align-items: center; gap: 10px; }
+        .notice-card ul { list-style: none; margin: 20px 0; padding-left: 10px; }
+        .notice-card ul li { margin-bottom: 10px; display: flex; gap: 10px; align-items: baseline; }
+        .notice-card ul li::before { content: "•"; color: #e67e22; font-weight: bold; font-size: 1.5rem; }
+        .notice-card .highlight-refuse { background: #ffebee; color: #d32f2f; padding: 10px 15px; border-radius: 8px; font-weight: 700; margin: 20px 0; display: inline-block; border-left: 5px solid #d32f2f; }
+
+        /* FOOTER */
+        footer { background: #070d1a; color: #94a3b8; padding: 80px 20px 50px; border-top: 1px solid #1e293b; }
+        .footer-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
+        .footer-col { display: flex; flex-direction: column; align-items: center; width: 100%; }
+        .footer-logo-wrap { max-width: 220px; width: 100%; margin-bottom: 20px; }
+        .footer-logo-wrap img { width: 100%; height: auto; object-fit: contain; }
+        .footer-col h4 { color: #fff; margin-bottom: 25px; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; position: relative; padding-bottom: 10px; }
+        .footer-col h4::after { content: ''; width: 30px; height: 2px; background: var(--primary); position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); }
 
         /* MARQUEE */
         #projects { background: var(--dark-bg); padding: 50px 0; overflow: hidden; }
@@ -77,18 +98,6 @@
         .proj-card img { width: 100%; height: 180px; object-fit: cover; opacity: 0.8; }
         @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-50%); } }
 
-        /* FOOTER - 3 CỘT THEO YÊU CẦU */
-        footer { background: #070d1a; color: #94a3b8; padding: 80px 20px 50px; border-top: 1px solid #1e293b; }
-        .footer-grid { max-width: 1300px; margin: auto; display: grid; grid-template-columns: repeat(3, 1fr); gap: 40px; text-align: center; }
-        .footer-col { display: flex; flex-direction: column; align-items: center; width: 100%; }
-        .footer-logo-wrap { max-width: 220px; width: 100%; margin-bottom: 20px; }
-        .footer-logo-wrap img { width: 100%; height: auto; object-fit: contain; }
-        .footer-col h4 { color: #fff; margin-bottom: 25px; font-size: 1rem; text-transform: uppercase; letter-spacing: 1px; position: relative; padding-bottom: 10px; }
-        .footer-col h4::after { content: ''; width: 30px; height: 2px; background: var(--primary); position: absolute; bottom: 0; left: 50%; transform: translateX(-50%); }
-        .footer-col ul { list-style: none; padding: 0; width: 100%; }
-        .footer-col ul li { margin-bottom: 10px; font-size: 0.9rem; line-height: 1.6; }
-        .footer-col p { font-size: 0.9rem; line-height: 1.6; color: #cbd5e1; }
-
         /* MODAL */
         .modal { display: none; position: fixed; inset: 0; background: rgba(0,0,0,0.92); z-index: 2000; justify-content: center; align-items: center; padding: 20px; backdrop-filter: blur(10px); }
         .modal-content { background: #fff; width: 100%; max-width: 1000px; border-radius: 30px; display: grid; grid-template-columns: 45% 55%; position: relative; overflow: hidden; max-height: 90vh; }
@@ -96,18 +105,15 @@
         .modal-right { padding: 50px; overflow-y: auto; display: flex; flex-direction: column; }
         .close-btn { position: absolute; top: 20px; right: 25px; font-size: 40px; color: #cbd5e1; cursor: pointer; z-index: 100; }
         #thumb-box { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 10px; }
-        #thumb-box img { width: 70px; height: 70px; object-fit: contain; border: 1px solid #eee; border-radius: 8px; cursor: pointer; transition: 0.2s; }
+        #thumb-box img { width: 70px; height: 70px; object-fit: contain; border: 1px solid #eee; border-radius: 8px; cursor: pointer; }
 
-        @media (max-width: 992px) {
-            .footer-grid { grid-template-columns: 1fr; gap: 50px; }
-        }
-
+        @media (max-width: 992px) { .footer-grid { grid-template-columns: 1fr; gap: 50px; } }
         @media (max-width: 768px) {
             .slider-container { height: 280px; }
             .intro-container { grid-template-columns: 1fr; }
             .modal-content { grid-template-columns: 1fr; }
             .menu-toggle { display: block; }
-            nav ul { position: fixed; top: 0; right: -100%; width: 85%; height: 100vh; background: #fff; flex-direction: column; padding: 100px 40px; transition: 0.5s; z-index: 1002; box-shadow: -20px 0 40px rgba(0,0,0,0.1); }
+            nav ul { position: fixed; top: 0; right: -100%; width: 85%; height: 100vh; background: #fff; flex-direction: column; padding: 100px 40px; transition: 0.5s; z-index: 1002; }
             nav ul.active { right: 0; }
         }
 
@@ -171,6 +177,7 @@
         <div class="activity-grid" id="activity-list"></div>
     </section>
 
+    <!-- CHÍNH SÁCH BẢO HÀNH -->
     <section id="warranty-policy">
         <div class="policy-container">
             <div class="section-title"><h2>Chính sách bảo hành</h2><div class="underline"></div></div>
@@ -184,8 +191,27 @@
                 <p><strong>Quy định kích hoạt bảo hành:</strong> Đối với các Đại lý/gara đã lắp đặt sản phẩm cho khách hàng, nếu không hoàn tất kích hoạt bảo hành trong vòng <span style="color:var(--price-red); font-weight:800">48 tiếng</span> (kể từ thời điểm lắp đặt), Công ty TNHH Thương mại Dịch vụ HT25 Việt Nam sẽ từ chối bảo hành.</p>
                 <p>Các garage/đại lý vui lòng chủ động kích hoạt hoặc nhắc nhở khách hàng kích hoạt bảo hành ngay sau khi lắp đặt để đảm bảo quyền lợi cho quý khách hàng.</p>
             </div>
-            
             <p style="font-weight:700; text-align:right; font-style: italic;">Trân trọng cảm ơn!</p>
+        </div>
+    </section>
+
+    <!-- THÔNG BÁO QUAN TRỌNG - PHẦN MỚI THÊM THEO YÊU CẦU -->
+    <section id="important-notice">
+        <div class="notice-card">
+            <h3>⚠️ THÔNG BÁO QUAN TRỌNG TỪ HT25 VIỆT NAM</h3>
+            <p>HT25 Việt Nam đã nhiều lần cảnh báo về việc lắp thêm thanh giằng khi sử dụng phuộc HT25.</p>
+            <p>❗ <strong>Việc này có thể:</strong></p>
+            <ul>
+                <li>Làm giảm độ êm ái của xe</li>
+                <li>Ảnh hưởng đến hoạt động của hệ thống treo</li>
+                <li>Gây tác động không tốt đến hệ gầm, đặc biệt là giảm xóc</li>
+            </ul>
+            <p>👉 <strong>Vì vậy, HT25 Việt Nam xin thông báo:</strong></p>
+            <div class="highlight-refuse">
+                Từ chối bảo hành đối với các trường hợp tự ý lắp thêm thanh giằng khi đang sử dụng phuộc HT25.
+            </div>
+            <p>📞 <strong>Mọi thắc mắc vui lòng liên hệ:</strong> <span style="color:var(--primary); font-weight:800">0907.59.0123</span> để được tư vấn chi tiết.</p>
+            <p style="margin-top:20px; font-weight:700; color:var(--dark-bg); font-style: italic;">HT25 Việt Nam – Đồng hành cùng trải nghiệm vận hành tối ưu.</p>
         </div>
     </section>
 
@@ -193,16 +219,14 @@
         <div class="marquee" id="project-list"></div>
     </section>
 
-    <!-- CHÂN TRANG 3 CỘT - NỘI DUNG CỐ ĐỊNH THEO YÊU CẦU -->
+    <!-- FOOTER 3 CỘT NỘI DUNG CỐ ĐỊNH -->
     <footer>
         <div class="footer-grid">
-            <!-- Cột 1 -->
             <div class="footer-col">
                 <div class="footer-logo-wrap"><img src="data/logo.jpg" alt="HT25 Logo"></div>
                 <p style="color: #fff; font-weight: 700; margin-bottom: 5px; text-transform: uppercase;">CÔNG TY TNHH TMDV HT25 VIỆT NAM</p>
-                <p>Rebound & Basic</p>
+                <p>Phuộc HT25 REBOUND điều chỉnh 16 nấc</p>
             </div>
-            <!-- Cột 2 -->
             <div class="footer-col">
                 <h4>TRỤ SỞ CHÍNH</h4>
                 <ul>
@@ -212,7 +236,6 @@
                     <li>Website: www.HT25VN.com</li>
                 </ul>
             </div>
-            <!-- Cột 3 -->
             <div class="footer-col">
                 <h4>VP ĐẠI DIỆN PHILIPPINES</h4>
                 <ul>
@@ -221,9 +244,6 @@
                     <li>Website: www.HT25VN.com</li>
                 </ul>
             </div>
-        </div>
-        <div style="text-align:center; margin-top:50px; font-size:0.8rem; opacity:0.4; letter-spacing: 1px;">
-            © 2024 CÔNG TY TNHH TM DV HT25 VIỆT NAM. ALL RIGHTS RESERVED.
         </div>
     </footer>
 
