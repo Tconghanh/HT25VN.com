@@ -3,299 +3,125 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trang quản trị trang web | Khang Gia Phúc</title>
+    <title>Trang quản trị | Khang Gia Phúc</title>
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --primary-color: #00f2fe;
-            --secondary-color: #4facfe;
-            --bg-dark: #0b0f19;
-            --sidebar-bg: #161b2b;
-            --card-bg: #1f2937;
-            --text-main: #e2e8f0;
-            --accent-glow: rgba(0, 242, 254, 0.4);
+            --primary: #00f2fe;
+            --secondary: #4facfe;
+            --bg-dark: #0b1120;
+            --sidebar-bg: #111827;
+            --accent: #1e293b;
+            --text-color: #f1f5f9;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Inter', sans-serif;
-        }
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Inter', sans-serif; }
+        body { background: var(--bg-dark); color: var(--text-color); display: flex; height: 100vh; overflow: hidden; }
 
-        body {
-            background-color: var(--bg-dark);
-            color: var(--text-main);
-            display: flex;
-            height: 100vh;
-            width: 100vw;
-            overflow: hidden;
-        }
-
-        /* Sidebar hiện đại */
-        .sidebar {
-            width: 280px;
-            background-color: var(--sidebar-bg);
-            border-right: 1px solid rgba(255, 255, 255, 0.05);
-            display: flex;
-            flex-direction: column;
-            z-index: 100;
-            box-shadow: 10px 0 30px rgba(0,0,0,0.5);
-        }
-
-        .logo-box {
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .logo-box img {
-            max-width: 180px;
-            filter: drop-shadow(0 0 15px var(--accent-glow));
-        }
-
-        .nav-menu {
-            flex: 1;
-            padding: 10px;
-        }
-
+        /* Sidebar */
+        .sidebar { width: 280px; background: var(--sidebar-bg); border-right: 1px solid rgba(255,255,255,0.1); display: flex; flex-direction: column; }
+        .logo { padding: 40px 20px; text-align: center; }
+        .logo img { max-width: 170px; filter: drop-shadow(0 0 10px rgba(0,242,254,0.3)); }
+        
         .nav-item {
-            padding: 16px 20px;
-            display: flex;
-            align-items: center;
-            cursor: pointer;
-            border-radius: 12px;
-            margin-bottom: 8px;
-            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-            color: #94a3b8;
-            font-weight: 500;
+            padding: 15px 25px; margin: 5px 15px; border-radius: 12px;
+            cursor: pointer; display: flex; align-items: center; gap: 15px;
+            color: #94a3b8; transition: 0.3s; font-weight: 500;
         }
+        .nav-item:hover { background: rgba(255,255,255,0.05); color: #fff; }
+        .nav-item.active { background: linear-gradient(135deg, var(--primary), var(--secondary)); color: #000; font-weight: 700; box-shadow: 0 5px 15px rgba(0,242,254,0.2); }
 
-        .nav-item i {
-            margin-right: 15px;
-            font-size: 1.2rem;
-            width: 25px;
-            text-align: center;
-        }
+        /* Main Content */
+        .main { flex: 1; display: flex; flex-direction: column; }
+        header { height: 70px; padding: 0 30px; display: flex; align-items: center; justify-content: space-between; background: rgba(17,24,39,0.8); border-bottom: 1px solid rgba(255,255,255,0.1); }
+        
+        .content { flex: 1; padding: 20px; position: relative; }
+        .tab-panel { display: none; width: 100%; height: 100%; border-radius: 15px; overflow: hidden; background: #fff; }
+        .tab-panel.active { display: block; animation: fadeIn 0.4s ease; }
 
-        .nav-item:hover {
-            background: rgba(255, 255, 255, 0.05);
-            color: #fff;
-            transform: translateX(5px);
+        /* Khung đặc biệt cho Quản lý hình ảnh */
+        .drive-container { display: flex; flex-direction: column; background: #f8fafc; }
+        .drive-toolbar {
+            padding: 10px 20px; background: #1e293b; color: white;
+            display: flex; justify-content: space-between; align-items: center;
         }
+        .btn-edit-drive {
+            background: var(--primary); color: #000; padding: 8px 16px;
+            border-radius: 8px; text-decoration: none; font-weight: 700; font-size: 0.85rem;
+            display: flex; align-items: center; gap: 8px; transition: 0.3s;
+        }
+        .btn-edit-drive:hover { transform: translateY(-2px); box-shadow: 0 4px 12px rgba(0,242,254,0.4); }
 
-        .nav-item.active {
-            background: linear-gradient(135deg, var(--secondary-color), var(--primary-color));
-            color: #000;
-            font-weight: 700;
-            box-shadow: 0 4px 15px var(--accent-glow);
-        }
+        iframe { width: 100%; height: 100%; border: none; }
 
-        /* Vùng nội dung chính */
-        .main-wrapper {
-            flex: 1;
-            display: flex;
-            flex-direction: column;
-            background: #0f172a;
-        }
+        /* Hỗ trợ */
+        #ho-tro { background: #111827; display: flex; align-items: center; justify-content: center; }
+        .sup-card { background: #1e293b; padding: 40px; border-radius: 20px; text-align: center; border: 1px solid rgba(255,255,255,0.1); width: 100%; max-width: 500px; }
+        .btn-call { display: block; margin-top: 25px; padding: 15px; background: linear-gradient(135deg, #00f2fe, #4facfe); color: #000; text-decoration: none; border-radius: 50px; font-weight: 700; }
 
-        header {
-            height: 60px;
-            background: rgba(22, 27, 43, 0.9);
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 0 30px;
-            border-bottom: 1px solid rgba(255, 255, 255, 0.05);
-        }
-
-        .status-bar {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            font-size: 0.9rem;
-        }
-
-        .dot {
-            height: 8px;
-            width: 8px;
-            background-color: #10b981;
-            border-radius: 50%;
-            display: inline-block;
-            box-shadow: 0 0 10px #10b981;
-        }
-
-        .content-area {
-            flex: 1;
-            padding: 15px;
-            position: relative;
-        }
-
-        .tab-panel {
-            display: none;
-            width: 100%;
-            height: 100%;
-            border-radius: 15px;
-            overflow: hidden;
-            background: #fff; /* Nền trắng cho nội dung nhúng để dễ đọc */
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-        }
-
-        .tab-panel.active {
-            display: block;
-            animation: slideIn 0.4s ease-out;
-        }
-
-        iframe {
-            width: 100%;
-            height: 100%;
-            border: none;
-        }
-
-        /* Panel Hỗ trợ đặc biệt */
-        #ho-tro {
-            background: var(--sidebar-bg);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .support-card {
-            background: var(--card-bg);
-            padding: 50px;
-            border-radius: 24px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            text-align: center;
-            max-width: 500px;
-        }
-
-        .support-card h2 {
-            color: var(--primary-color);
-            margin-bottom: 25px;
-            font-size: 1.8rem;
-        }
-
-        .info-row {
-            margin: 15px 0;
-            font-size: 1.1rem;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 10px;
-        }
-
-        .btn-call {
-            margin-top: 30px;
-            display: inline-block;
-            padding: 15px 40px;
-            background: linear-gradient(135deg, #00f2fe, #4facfe);
-            color: #000;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 700;
-            transition: 0.3s;
-        }
-
-        .btn-call:hover {
-            transform: scale(1.05);
-            box-shadow: 0 0 20px var(--accent-glow);
-        }
-
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
+        @keyframes fadeIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
     </style>
 </head>
 <body>
 
-    <aside class="sidebar">
-        <div class="logo-box">
-            <img src="https://khanggiaphuc.com/data/logo.jpg" alt="Logo">
-        </div>
-        
-        <nav class="nav-menu">
-            <div class="nav-item active" onclick="switchTab('them-sp', this)">
-                <i class="fa-solid fa-plus-square"></i> Thêm sản phẩm
-            </div>
-            <div class="nav-item" onclick="switchTab('quan-ly-anh', this)">
-                <i class="fa-solid fa-folder-open"></i> Quản lý hình ảnh
-            </div>
-            <div class="nav-item" onclick="switchTab('quan-ly-sp', this)">
-                <i class="fa-solid fa-table"></i> Quản lý sản phẩm
-            </div>
-            <div class="nav-item" onclick="switchTab('ho-tro', this)">
-                <i class="fa-solid fa-circle-info"></i> Hỗ trợ
-            </div>
-        </nav>
-    </aside>
+    <div class="sidebar">
+        <div class="logo"><img src="https://khanggiaphuc.com/data/logo.jpg" alt="Logo"></div>
+        <div class="nav-item active" onclick="showTab('them-sp', this)"><i class="fas fa-plus-circle"></i> Thêm sản phẩm</div>
+        <div class="nav-item" onclick="showTab('quan-ly-anh', this)"><i class="fas fa-images"></i> Quản lý hình ảnh</div>
+        <div class="nav-item" onclick="showTab('quan-ly-sp', this)"><i class="fas fa-list-alt"></i> Quản lý sản phẩm</div>
+        <div class="nav-item" onclick="showTab('ho-tro', this)"><i class="fas fa-headset"></i> Hỗ trợ</div>
+    </div>
 
-    <main class="main-wrapper">
+    <div class="main">
         <header>
-            <div style="font-weight: 700; letter-spacing: 1px;">DASHBOARD QUẢN TRỊ</div>
-            <div class="status-bar">
-                <span class="dot"></span> Hệ thống đang trực tuyến
-            </div>
+            <div style="font-weight: 600; color: var(--primary)">HỆ THỐNG QUẢN TRỊ KHANG GIA PHÚC</div>
+            <div style="font-size: 0.9rem"><i class="fas fa-user-shield"></i> Chào Admin</div>
         </header>
 
-        <div class="content-area">
-            <!-- Tab Thêm sản phẩm -->
+        <div class="content">
+            <!-- Thêm sản phẩm -->
             <div id="them-sp" class="tab-panel active">
-                <!-- Chế độ embedded=true giúp form không bị nhảy trang -->
                 <iframe src="https://docs.google.com/forms/d/e/1FAIpQLSe__utHtbrJH_eBnrVDDnJHZukCkTqUtMUsqhNKMDwlittKaQ/viewform?embedded=true"></iframe>
             </div>
 
-            <!-- Tab Quản lý hình ảnh -->
-            <div id="quan-ly-anh" class="tab-panel">
-                <!-- Sử dụng link nhúng thư mục chuyên dụng của Drive -->
-                <iframe src="https://drive.google.com/embeddedfolderview?id=1MlPGtR_vPmtJg2bJWJx56nnfWvhQ0S2uvco5HdtvA6pduojIMNRHt44lzKBtAWF_b20hhzdC#list"></iframe>
+            <!-- Quản lý hình ảnh -->
+            <div id="quan-ly-anh" class="tab-panel drive-container">
+                <div class="drive-toolbar">
+                    <span><i class="fab fa-google-drive"></i> Thư mục hình ảnh hệ thống</span>
+                    <a href="https://drive.google.com/drive/folders/1MlPGtR_vPmtJg2bJWJx56nnfWvhQ0S2uvco5HdtvA6pduojIMNRHt44lzKBtAWF_b20hhzdC" target="_blank" class="btn-edit-drive">
+                        <i class="fas fa-external-link-alt"></i> MỞ TRÌNH QUẢN LÝ (THÊM/XÓA/SỬA)
+                    </a>
+                </div>
+                <iframe src="https://drive.google.com/embeddedfolderview?id=1MlPGtR_vPmtJg2bJWJx56nnfWvhQ0S2uvco5HdtvA6pduojIMNRHt44lzKBtAWF_b20hhzdC#grid"></iframe>
             </div>
 
-            <!-- Tab Quản lý sản phẩm -->
+            <!-- Quản lý sản phẩm -->
             <div id="quan-ly-sp" class="tab-panel">
-                <!-- Sử dụng chế độ htmlembed để chỉ hiện các ô tính -->
+                <!-- Sử dụng link ẩn thanh công cụ và tab -->
                 <iframe src="https://docs.google.com/spreadsheets/d/18ce9-AdNPMv_CPKCKQqRD4k0jTw1Hv-xZLF_Q4ZaubE/htmlembed?gid=509656365&widget=false&chrome=false&headers=false"></iframe>
             </div>
 
-            <!-- Tab Hỗ trợ -->
+            <!-- Hỗ trợ -->
             <div id="ho-tro" class="tab-panel">
-                <div class="support-card">
-                    <i class="fa-solid fa-headset" style="font-size: 5rem; color: var(--primary-color); margin-bottom: 20px;"></i>
-                    <h2>HỖ TRỢ KỸ THUẬT</h2>
-                    <div class="info-row">
-                        <i class="fa-solid fa-building"></i>
-                        <span>Công ty TNHH Khang Gia Phúc</span>
-                    </div>
-                    <div class="info-row">
-                        <i class="fa-solid fa-globe"></i>
-                        <a href="https://www.khanggiaphuc.com" style="color: #4facfe; text-decoration: none;">www.khanggiaphuc.com</a>
-                    </div>
-                    <div class="info-row" style="font-size: 1.5rem; margin-top: 20px;">
-                        <i class="fa-solid fa-phone-volume"></i>
-                        <span style="color: #ff4757; font-weight: 800;">0844.900.099</span>
-                    </div>
-                    <a href="tel:0844900099" class="btn-call">GỌI HỖ TRỢ NGAY</a>
+                <div class="sup-card">
+                    <h2 style="color: var(--primary); margin-bottom: 15px;">HỖ TRỢ KỸ THUẬT</h2>
+                    <p style="margin-bottom: 10px;"><strong>Công ty TNHH Khang Gia Phúc</strong></p>
+                    <p>Website: <a href="https://khanggiaphuc.com" style="color: var(--secondary)">www.khanggiaphuc.com</a></p>
+                    <h1 style="margin-top: 20px; color: #ff4757;">0844.900.099</h1>
+                    <a href="tel:0844900099" class="btn-call">GỌI HOTLINE NGAY</a>
                 </div>
             </div>
         </div>
-    </main>
+    </div>
 
     <script>
-        function switchTab(tabId, element) {
-            // Ẩn tất cả các panel
-            document.querySelectorAll('.tab-panel').forEach(panel => {
-                panel.classList.remove('active');
-            });
-            
-            // Bỏ kích hoạt các menu
-            document.querySelectorAll('.nav-item').forEach(item => {
-                item.classList.remove('active');
-            });
-
-            // Hiển thị panel được chọn và kích hoạt menu tương ứng
-            document.getElementById(tabId).classList.add('active');
-            element.classList.add('active');
+        function showTab(id, el) {
+            document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+            document.querySelectorAll('.nav-item').forEach(i => i.classList.remove('active'));
+            document.getElementById(id).classList.add('active');
+            el.classList.add('active');
         }
     </script>
 </body>
