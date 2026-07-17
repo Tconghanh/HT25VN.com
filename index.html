@@ -57,6 +57,7 @@
         /* INTRO & ACTIVITY */
         .intro-container { display: grid; grid-template-columns: 1fr 1fr; gap: 60px; align-items: center; }
         .intro-img-box { border-radius: var(--radius); overflow: hidden; box-shadow: 0 20px 50px rgba(0,0,0,0.15); }
+        .intro-img-box img {width: 100%;height: 100%;object-fit: cover;}
         .activity-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; }
         .activity-card { background: #fff; padding: 45px 30px; border-radius: var(--radius); text-align: center; transition: var(--transition); box-shadow: 0 5px 20px rgba(0,0,0,0.03); border: 1px solid #f8fafc; }
         .activity-card:hover { background: var(--primary); transform: translateY(-10px); }
@@ -73,7 +74,7 @@
         .notice-card { max-width: 1100px; margin: auto; background: #fff; padding: 40px; border-radius: var(--radius); border: 2px solid #ffcc00; box-shadow: 0 15px 30px rgba(255, 204, 0, 0.1); }
         .notice-card .highlight-refuse { background: #ffebee; color: #d32f2f; padding: 10px 15px; border-radius: 8px; font-weight: 700; margin: 20px 0; display: inline-block; border-left: 5px solid #d32f2f; }
         .notice-img-box {width: 50%;aspect-ratio: 4 / 3;}
-        .intro-img-box img {width: 100%;height: 100%;object-fit: cover;}
+        .notice-img-box img {width: 100%;height: 100%;object-fit: cover;}
         
         /* FOOTER */
         footer { background: #070d1a; color: #94a3b8; padding: 80px 20px 50px; border-top: 1px solid #1e293b; }
